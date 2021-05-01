@@ -8,7 +8,7 @@ import {
 import Home from '../views/Home';
 import HomeOwner  from '../views/HomeOwner';
 import Login  from '../views/Login';
-import Register from '../views/Register';
+import Register from '../views/Register/RegisterView';
 import RegisterOwner from '../views/RegisterOwner';
 import ParkDetail from '../views/ParkDetail';
 import CreatePark from '../views/CreatePark';
