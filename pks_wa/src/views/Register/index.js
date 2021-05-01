@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import TextField from '../../components/FormTextField';
 
+
 class Register extends Component {
 
-  state = { name: "",email: "",password: "", Password2: "",age: "",phoneNumber: ""}
+  state = { name: "",email: "",password: "", password2: "",age: "",phoneNumber: ""}
   nameCallbackFunction = (childData) => {
       this.setState({name: childData})
   }
@@ -23,6 +24,10 @@ class Register extends Component {
     this.setState({password2: childData})
   }
 
+  onClickSignup(){
+
+  }
+
   render() {
     return (
       <div>
@@ -38,7 +43,7 @@ class Register extends Component {
                   <TextField className="row " parentCallback = {this.passwordCallbackFunction} name="Contraseña" placeholder="Escriba su contraseña" type="password" />
                   <TextField className="row " parentCallback = {this.password2CallbackFunction} name="Repetir Contraseña" placeholder="Repita su contraseña" type="password" />
               </form>
-              <button className="btn btn-outline-success col-4  py-2 offset-4" type="button" onClick={null}>Success</button>
+              <button className="btn btn-outline-success col-4  py-2 offset-4" type="button" onClick={null}>Registrarse</button>
             </div>
           </div>
 
