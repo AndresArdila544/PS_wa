@@ -6,12 +6,12 @@ import {
 } from 'react-router-dom'
 
 import Home from '../views/Home';
-import HomeOwner  from '../views/Home';
+import HomeOwner  from '../views/HomeOwner';
 import Login  from '../views/Login';
-import  Register  from '../views/Register';
-import  RegisterOwner  from '../views/RegisterOwner';
-import  ParkDetail  from '../views/ParkDetail';
-import  CreatePark  from '../views/CreatePark';
+import Register from '../views/Register';
+import RegisterOwner from '../views/RegisterOwner';
+import ParkDetail from '../views/ParkDetail';
+import CreatePark from '../views/CreatePark';
 
 class AppRouter extends Component {
     render() {
@@ -21,8 +21,8 @@ class AppRouter extends Component {
                 <div>
                     <Switch> 
                         <Route path="/Inicio" component={ Home }/>
-                        <Route path="/" component={ Login } />
-                        <Route path="/InicioDueño" component={ HomeOwner } />
+                        <Route exact path="/" component={ Login } />
+                        <Route path="/InicioDueno" component={ HomeOwner } />
                         <Route path="/SignUp" component={ Register } />
                         <Route path="/SignUpOwner" component={ RegisterOwner } />
                         <Route path="/CreatePark" component={ CreatePark } />
