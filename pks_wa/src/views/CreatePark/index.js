@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 
 import MapPutPin from '../../components/MapPutPin'
-
+import FormTextField from '../../components/FormTextField'
 
 const CreatePark = () => {
 
@@ -12,10 +12,18 @@ const CreatePark = () => {
   }
 
   return (
-    <div>
-      <h1>CreatePark View</h1>
+    <div className="row">
+      <h1 className="col-6 offset-6">Crear Parqueadero</h1>
       
-      <MapPutPin className="col-5" onLocationChange={setLocation}/>
+      <MapPutPin onLocationChange={setLocation}/>
+    
+      <div className="col-6 pt-5">
+        <FormTextField name="Nombre" placeholder="Escriba el nombre del parqueadero" type="text"/>
+        <FormTextField name="Cupos Totales" placeholder="Escriba Cupos Totales" type="number"/>
+        <FormTextField name="Direccion" placeholder="Escriba su Direccion" type="text"/>
+        <FormTextField name="hola" placeholder="Escriba su nombre" type="text"/>
+
+      </div>
     </div>
   );
 }

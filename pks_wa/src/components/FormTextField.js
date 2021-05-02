@@ -8,7 +8,7 @@ class FormTextField extends Component {
   };
   render() {
     return (
-        <div className="col-6  py-3 offset-3 input-effect">
+        <div className="col-6 pb-3 offset-3 input-effect">
           <input id={this.props.name} className="effect-20" type={this.props.type} placeholder={this.props.placeholder} onChange={this.onChangeParent}></input>
             <label>{this.props.name}</label>
             <span className="focus-border">

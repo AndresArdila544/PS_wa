@@ -64,7 +64,7 @@ export default function MapShowPins(props) {
                             position={{lat: parseFloat(info.location.latitude), lng: parseFloat(info.location.longitude)}}
                             icon = {{
                                 url: '/Park_pin.svg',
-                                scaledSize: new window.google.maps.Size(25, 25),
+                                scaledSize: new window.google.maps.Size(50, 50),
                             }}
                             onClick={() => {
                                 setSelected(info)
@@ -83,6 +83,7 @@ export default function MapShowPins(props) {
                                         <p>{selected.name}</p>
                                         <p>{selected.address}</p>
                                     </div>
+                                    
                                 </InfoWindow>
                     ) : null}
                  

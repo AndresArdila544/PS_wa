@@ -6,14 +6,16 @@ import {
     Marker,
     InfoWindow,
 } from "@react-google-maps/api";
+
+import Search from './Search'
 import mapStyles from '../styles/mapStyles'
 
 
 const libraries = ["places"];
 const mapContainerStyle = {
-    height: "100vh",
-    width: "100vw",
-  };
+    height: "100%",
+    width: "100%",
+};
 const center = {
     lat: 4.710989,
     lng: -74.072090
@@ -36,7 +38,15 @@ export default function MapPutPin(props) {
     })
     const [marker, setMarker] = React.useState([]);
 
-    
+    const mapRef = React.useRef();
+    const onMapLoad = React.useCallback((map) => {
+        mapRef.current = map;
+    }, []);
+
+    const panTo = React.useCallback(({ lat, lng }) => {
+        mapRef.current.panTo({ lat, lng });
+        mapRef.current.setZoom(14);
+    }, []);
     
     
     
@@ -58,8 +68,8 @@ export default function MapPutPin(props) {
     
 
     return (
-        <div>
-            Map Pin Component
+        <div className="col-6">
+            <Search panTo={panTo}/>
             <GoogleMap
                 id="map"
                 mapContainerStyle={mapContainerStyle}
@@ -67,6 +77,7 @@ export default function MapPutPin(props) {
                 center={center}
                 options={options}
                 onClick={onMapClick}
+                onLoad={onMapLoad}
                 >
                     {marker.map((info)=>(
                         <Marker
@@ -74,7 +85,7 @@ export default function MapPutPin(props) {
                             position={{lat: parseFloat(info.lat), lng: parseFloat(info.lng)}}
                             icon = {{
                                 url: '/Park_pin.svg',
-                                scaledSize: new window.google.maps.Size(25, 25),
+                                scaledSize: new window.google.maps.Size(50, 50),
                             }}
                             
                         />

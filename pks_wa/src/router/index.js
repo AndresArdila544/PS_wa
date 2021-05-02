@@ -16,9 +16,9 @@ import CreatePark from '../views/CreatePark';
 class AppRouter extends Component {
     render() {
       return (
-        <div>
-          <Router>
-                <div>
+        <div className="container py-2">
+          <Router >
+                
                     <Switch> 
                         <Route path="/Inicio" component={ Home }/>
                         <Route exact path="/" component={ Login } />
@@ -28,7 +28,7 @@ class AppRouter extends Component {
                         <Route path="/CreatePark" component={ CreatePark } />
                         <Route path="/ParkDetail" component={ ParkDetail } />
                     </Switch>
-                </div>
+              
             </Router>
         </div>
       );
