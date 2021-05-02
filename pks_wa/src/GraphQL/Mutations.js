@@ -20,3 +20,24 @@ mutation clu_postUser(
     }
      
 `;
+
+export const SIGN_UP_MUTATION_OWNER = gql`
+mutation plu_postParkinglotuser(
+      $username: String    
+      $name: String
+      $email: String
+      $password: String!
+      $phone:String
+    ){
+        plu_postParkinglotuser( parkinglotuser:{
+            username: $username     
+            name: $name
+            email: $email
+            password: $password
+            phone: $phone
+        }){
+            userId
+        }
+    }
+     
+`;
