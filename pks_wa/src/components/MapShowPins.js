@@ -33,7 +33,7 @@ export default function MapShowPins(props) {
     })
 
     var [markers, setMarkers] = React.useState([]);
-
+    var [selected, setSelected] = React.useState(null)
     
     const onMarkerClick = (evt,id,name) => {
        
@@ -54,6 +54,9 @@ export default function MapShowPins(props) {
                 zoom={13}
                 center={center}
                 options={options}
+                onClick={() => {
+                    setSelected(null)
+                }}
                 >
                     {markers.map((info)=>(
                         <Marker
@@ -63,11 +66,25 @@ export default function MapShowPins(props) {
                                 url: '/Park_pin.svg',
                                 scaledSize: new window.google.maps.Size(25, 25),
                             }}
-                            onClick={onMarkerClick(info.id,info.name)}
-                            
+                            onClick={() => {
+                                setSelected(info)
+                            }}  
                         />
 
                     ))};
+                    {selected ? (
+                                <InfoWindow
+                                    position={{ lat: selected.location.latitude, lng: selected.location.longitude }}
+                                    onCloseClick={() => {
+                                        setSelected(null);
+                                    }}
+                                >
+                                    <div>
+                                        <p>{selected.name}</p>
+                                        <p>{selected.address}</p>
+                                    </div>
+                                </InfoWindow>
+                    ) : null}
                  
                     
                     
