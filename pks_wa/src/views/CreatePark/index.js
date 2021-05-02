@@ -14,9 +14,7 @@ const CreatePark = () => {
   return (
     <div>
       <h1>CreatePark View</h1>
-      <h1>
-        Latitud: {marker.lat} Longitud: {marker.lng}
-      </h1>
+      
       <MapPutPin className="col-5" onLocationChange={setLocation}/>
     </div>
   );
