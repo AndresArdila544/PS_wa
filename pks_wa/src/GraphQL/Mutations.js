@@ -20,3 +20,17 @@ mutation clu_postUser(
     }
      
 `;
+
+export const LOGIN_MUTATION = gql`
+    mutation ath_login(
+        $email: String!
+        $password: String!
+    ){
+        ath_login(
+            email: $email
+            password: $password
+        ){
+            token
+        }
+    }
+`;

@@ -7,7 +7,7 @@ import {
 
 import Home from '../views/Home';
 import HomeOwner  from '../views/HomeOwner';
-import Login  from '../views/Login';
+import Login  from '../views/Login/LoginView';
 import Register from '../views/Register/RegisterView';
 import RegisterOwner from '../views/RegisterOwner';
 import ParkDetail from '../views/ParkDetail';

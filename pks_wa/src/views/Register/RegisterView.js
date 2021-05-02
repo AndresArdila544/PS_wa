@@ -35,14 +35,9 @@ const Register =() => {
       setPassword2(childData)
   }
 
-    const[signUp,{error}] = useMutation(SIGN_UP_MUTATION);
-  
-    const signUpMutation =() =>{
-      console.log(name)
-      console.log(password)
-      console.log(phoneNumber)
-
-      signUp({
+    const[signUp,{data}] = useMutation(SIGN_UP_MUTATION);
+    const signUpMutation = async() =>{
+       await signUp({
         variables: {
           name: name,
           email: email,
@@ -50,14 +45,16 @@ const Register =() => {
           age: parseInt(age),
           phoneNumber: parseInt(phoneNumber),
         }
-      });
-      console.log();
-  
-      if (error) {
-        console.warn(error);
-      }
+      });     
+
+      console.log(data.clu_postUser.userId)
     }
-  
+    
+  // const checkPassword = (p1, p2) => {
+  //   if(p1===p2){
+  //     return true
+  //   }
+  // }
   
 
     return (
