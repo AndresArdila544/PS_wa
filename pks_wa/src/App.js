@@ -19,6 +19,9 @@ class App extends Component {
       <ApolloProvider client={client}>
         <div>
           <AppRouter/>
+          <div className="bg"></div>
+          <div className="bg bg2"></div>
+          <div className="bg bg3"></div>
         </div>
       </ApolloProvider>
       
