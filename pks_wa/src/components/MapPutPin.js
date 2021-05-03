@@ -1,5 +1,5 @@
 import React from 'react';
-
+import "../App.css";
 import {
     GoogleMap,
     useLoadScript,
@@ -13,7 +13,7 @@ import mapStyles from '../styles/mapStyles'
 
 const libraries = ["places"];
 const mapContainerStyle = {
-    height: "100%",
+    height: "500px",
     width: "100%",
 };
 const center = {
@@ -68,8 +68,10 @@ export default function MapPutPin(props) {
     
 
     return (
-        <div className="col-6">
-            <Search panTo={panTo}/>
+        <div className="col-12 pt-3">
+            <div className="box col-6 offset-3">
+                <Search panTo={panTo}/>
+            </div>
             <GoogleMap
                 id="map"
                 mapContainerStyle={mapContainerStyle}
