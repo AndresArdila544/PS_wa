@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { useQuery} from "@apollo/client";
-import { GET_PARKINGS_BY_HOME_OWNER_ID  } from '../../GraphQL/Querys';
+import { GET_PARKINGS, GET_LOCATION } from '../../GraphQL/Querys';
+import { makeStyles } from '@material-ui/core/styles';
+import MapShowPins from '../../components/MapShowPins'
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import MapShowPins from '../../components/MapShowPins'
-import { makeStyles } from '@material-ui/core/styles';
-
-
-
+import { set } from 'date-fns';
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -19,32 +17,23 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Home (props) {
     
-    const {data,loading} = useQuery(GET_PARKINGS_BY_HOME_OWNER_ID,{variables:{id:parseInt(localStorage.getItem('LoggedId'))}})
+    const {data,loading} = useQuery(GET_PARKINGS)
     const classes = useStyles();
-    
-
-
     if (loading) return (
       
       <Backdrop className={classes.backdrop} open={loading}>
         <CircularProgress color="inherit" />
       </Backdrop>
     );
-    
-
 
     function getlocations () {
-       return data.par_getParkingByIdPluLoc
+       return data.par_getParkingsLocation
     }
-
-    
-
 
     return (
       <div>
-        <h1>HomeOwner View</h1>
+        <h1>Home View</h1>
         <MapShowPins obtainLocations={getlocations} />
-        
       </div>
     );
   

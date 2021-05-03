@@ -153,11 +153,11 @@ const CreatePark = () => {
 
   return (
     <div className="row">
-      <h1 className="col-6 offset-6">Crear Parqueadero</h1>
+      <h1 className="col-6 offset-3">Crear Parqueadero</h1>
       
       
     
-      <div className="col-6 pt-3">
+      <div className="col-5 pt-3">
         <FormTextField name="Nombre" placeholder="Escriba el nombre del parqueadero" type="text" parentCallback={nameCallbackFunction}/>
         <FormTextField name="Direccion" placeholder="Escriba su Direccion" type="text" value={address} parentCallback={direccionCallbackFunction}/>
         <FormTextField name="Cupos Totales" placeholder="Escriba Cupos Totales" type="number" parentCallback={totalSpacesCallbackFunction}/>
@@ -185,9 +185,9 @@ const CreatePark = () => {
         </div>
         
      </div>
-      <div className="col-6">
+      <div className="col-7">
         <MapPutPin onLocationChange={setLocation}/>
-        <div className="col-6 offset-6 pt-4">
+        <div className="col-7 offset-5 pt-4">
           <Button
             variant="contained"
             color="primary"
@@ -196,7 +196,7 @@ const CreatePark = () => {
             startIcon={<SaveIcon/>}
             onClick={createParkingMutation}
           >
-          Guardar Park
+          Guardar Parking
           </Button>
         </div>
         

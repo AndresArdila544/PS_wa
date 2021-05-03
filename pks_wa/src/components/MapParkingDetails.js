@@ -51,7 +51,7 @@ export default function MapParkingDetails(props){
                             key={`${center.lat}-${center.lng}`}
                             position={{lat: parseFloat(center.lat), lng: parseFloat(center.lng)}}
                             icon = {{
-                                url: '/Park_pin.svg',
+                                url: '/Pin.svg',
                                 scaledSize: new window.google.maps.Size(50, 50),
                             }}                            
                         />  

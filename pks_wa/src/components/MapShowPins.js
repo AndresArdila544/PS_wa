@@ -22,6 +22,7 @@ const options = {
 const mapContainerStyle = {
     height: "100vh",
     width: "100%",
+    border_radius: "15px",
 };
 
 
@@ -46,10 +47,11 @@ export default function MapShowPins(props) {
     if (loadError) return "Error loading Maps"
     if (!isLoaded) return "Loading Maps"
     return (
-        <div>
+        <div >
             Map Show parks Component
             <GoogleMap
                 id="map"
+                style={{borderRadius:"300px"}}
                 mapContainerStyle={mapContainerStyle}
                 zoom={13}
                 center={center}
@@ -60,11 +62,11 @@ export default function MapShowPins(props) {
                 >
                     {markers.map((info)=>(
                         <Marker
-                            key={`${info.location.latitude}-${info.location.longitud}`}
+                            key={`${info.location.latitude}-${info.location.longitude}`}
                             position={{lat: parseFloat(info.location.latitude), lng: parseFloat(info.location.longitude)}}
                             icon = {{
-                                url: '/Park_pin.svg',
-                                scaledSize: new window.google.maps.Size(50, 50),
+                                url: '/Pin.svg',
+                                scaledSize: new window.google.maps.Size(70, 70),
                             }}
                             onClick={() => {
                                 setSelected(info)
@@ -78,6 +80,7 @@ export default function MapShowPins(props) {
                                     onCloseClick={() => {
                                         setSelected(null);
                                     }}
+
                                 >
                                     <div>
                                         <p>{selected.name}</p>

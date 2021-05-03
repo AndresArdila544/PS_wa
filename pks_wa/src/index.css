@@ -26,6 +26,7 @@ code {
     position:relative;
     text-align:center;
   }
+  
 
   input[type=number]::-webkit-inner-spin-button, 
   input[type=number]::-webkit-outer-spin-button { 
@@ -235,3 +236,4 @@ code {
     --fieldBorderColor: #D1C4E9;
     --fieldBorderColorActive: #673AB7;
   }
+

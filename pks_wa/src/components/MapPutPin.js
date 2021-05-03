@@ -86,7 +86,7 @@ export default function MapPutPin(props) {
                             key={`${marker.lat}-${marker.lng}`}
                             position={{lat: parseFloat(info.lat), lng: parseFloat(info.lng)}}
                             icon = {{
-                                url: '/Park_pin.svg',
+                                url: '/Pin.svg',
                                 scaledSize: new window.google.maps.Size(50, 50),
                             }}
                             

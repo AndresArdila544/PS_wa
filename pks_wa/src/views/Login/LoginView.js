@@ -6,11 +6,24 @@ import {
 import TextField from '../../components/FormTextField';
 import { useMutation } from "@apollo/client";
 import { LOGIN_MUTATION } from '../../GraphQL/Mutations';
+import { makeStyles } from '@material-ui/core/styles';
+import Backdrop from '@material-ui/core/Backdrop';
+import CircularProgress from '@material-ui/core/CircularProgress';
+const useStyles = makeStyles((theme) => ({
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+}));
+
+
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
+  const classes = useStyles();
   const sendClientOnClick = () => history.push('/Inicio');
   const sendOwnerOnClick = () => history.push('/InicioDueno');
   const [login, { data, loading,error }] = useMutation(LOGIN_MUTATION, {
@@ -37,6 +50,12 @@ const Login = () => {
     }
 
   });
+  if (loading) return (
+      
+    <Backdrop className={classes.backdrop} open={loading}>
+      <CircularProgress color="inherit" />
+    </Backdrop>
+  );
 
   const emailCallbackFunction = (childData) => {
     setEmail(childData)

@@ -6,25 +6,26 @@ import {
   HttpLink,
   from,
 } from "@apollo/client";
-import {client} from './GraphQL/ApolloGraphQL'
+import { client } from './GraphQL/ApolloGraphQL'
 import AppRouter from './router'
+
+
 
 
 
 class App extends Component {
 
-
   render() {
     return (
       <ApolloProvider client={client}>
         <div>
-          <AppRouter/>
+          <AppRouter />
           <div className="bg"></div>
           <div className="bg bg2"></div>
           <div className="bg bg3"></div>
         </div>
       </ApolloProvider>
-      
+
     );
   }
 }
