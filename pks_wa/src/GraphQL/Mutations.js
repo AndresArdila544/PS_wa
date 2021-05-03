@@ -18,7 +18,20 @@ mutation clu_postUser(
             userId
         }
     }
-     
+`;
+
+export const LOGIN_MUTATION = gql`
+    mutation ath_login(
+        $email: String!
+        $password: String!
+    ){
+        ath_login(
+            email: $email
+            password: $password
+        ){
+            token
+        }
+    }
 `;
 
 export const CREATE_PARKING_MUTATION = gql`
@@ -121,5 +134,4 @@ mutation plu_postParkinglotuser(
             userId
         }
     }
-     
 `;
