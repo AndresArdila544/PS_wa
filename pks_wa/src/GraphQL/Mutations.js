@@ -26,21 +26,21 @@ mutation par_createNewParkingLoc(
     $name: String!
     $pricePerMinute: Int!
     $totalSpaces: Int!
-    $usedSpaces: Int
-    $OM:String!
-    $CM:String!
-    $OT:String!
-    $CT:String!
-    $OW:String!
-    $CW:String!
-    $OTH:String!
-    $CTH:String!
-    $OF:String!
-    $CF:String!
-    $OS:String!
-    $CS:String!
-    $OSU:String!
-    $CSU:String!
+    $usedSpaces: Int!
+    $OM:String
+    $CM:String
+    $OT:String
+    $CT:String
+    $OW:String
+    $CW:String
+    $OTH:String
+    $CTH:String
+    $OF:String
+    $CF:String
+    $OS:String
+    $CS:String
+    $OSU:String
+    $CSU:String
     $latitude:Float!
     $longitude:Float!
     $address:String!
