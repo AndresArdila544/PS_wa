@@ -13,7 +13,7 @@ const Login = () => {
   const history = useHistory();
   const sendClientOnClick = () => history.push('/Inicio');
   const sendOwnerOnClick = () => history.push('/InicioDueno');
-  const [login, { data, loading }] = useMutation(LOGIN_MUTATION, {
+  const [login, { data, loading,error }] = useMutation(LOGIN_MUTATION, {
     onCompleted: (data) => {
       //console.log("Data from mutation", data)
       if (data.ath_loginWA.owner) {
@@ -33,8 +33,9 @@ const Login = () => {
       console.log("LoggedEmail", localStorage.getItem("LoggedEmail"))
 
     },
-    onError: (data) => {
+    onError: (error) => {
       alert("error login")
+      console.log(data)
     }
 
   });
