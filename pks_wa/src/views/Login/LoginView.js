@@ -23,8 +23,12 @@ const Login =() => {
         password: password
       }
     });
-    
-    console.log(data.ath_login.token);
+    if(data.ath_loginWA.owner){
+      data.ath_loginWA.id=parseInt(data.ath_loginWA.id);
+    }
+    localStorage.setItem("LoggedId", data.ath_loginWA.id);
+    localStorage.setItem("LoggedOwner", data.ath_loginWA.owner);
+    localStorage.setItem("LoggedEmail", data.ath_loginWA.email);
   }
 
   return(

@@ -21,15 +21,17 @@ mutation clu_postUser(
 `;
 
 export const LOGIN_MUTATION = gql`
-    mutation ath_login(
+    mutation ath_loginWA(
         $email: String!
         $password: String!
     ){
-        ath_login(
+        ath_loginWA(
             email: $email
             password: $password
         ){
-            token
+            id
+            email
+            owner
         }
     }
 `;
