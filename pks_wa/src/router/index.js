@@ -10,7 +10,7 @@ import HomeOwner  from '../views/HomeOwner';
 import Login  from '../views/Login/LoginView';
 import Register from '../views/Register/RegisterView';
 import RegisterOwner from '../views/RegisterOwner';
-import ParkDetail from '../views/ParkDetail';
+import ParkDetail from '../views/ParkDetail/ParkingView';
 import CreatePark from '../views/CreatePark';
 
 class AppRouter extends Component {
@@ -26,7 +26,7 @@ class AppRouter extends Component {
                         <Route path="/SignUp" component={ Register } />
                         <Route path="/SignUpOwner" component={ RegisterOwner } />
                         <Route path="/CreatePark" component={ CreatePark } />
-                        <Route path="/ParkDetail" component={ ParkDetail } />
+                        <Route path="/ParkDetail/:id" component={ ParkDetail } />
                     </Switch>
               
             </Router>
