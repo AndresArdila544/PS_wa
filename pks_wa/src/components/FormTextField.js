@@ -8,12 +8,13 @@ class FormTextField extends Component {
   };
   render() {
     return (
-        <div className="col-6 pb-3 offset-3 input-effect">
-          <input id={this.props.name} className="effect-20" type={this.props.type} placeholder={this.props.placeholder} onChange={this.onChangeParent}></input>
-            <label>{this.props.name}</label>
-            <span className="focus-border">
-              <i></i>
-            </span>
+        <div className="pb-3">
+          <label className="field field_v2">
+              <input className="field__input" id={this.props.name} placeholder={this.props.placeholder} type={this.props.type} onInput={this.onChangeParent} value={this.props.value}></input>
+              <span className="field__label-wrap">
+                <span className="field__label">{this.props.name}</span>
+              </span>
+          </label>   
         </div>
     );
   }

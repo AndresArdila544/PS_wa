@@ -21,7 +21,7 @@ const options = {
 }
 const mapContainerStyle = {
     height: "100vh",
-    width: "100vw",
+    width: "100%",
 };
 
 

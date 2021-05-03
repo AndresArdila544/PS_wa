@@ -48,8 +48,8 @@ export default function Search({ panTo }) {
     };
   
     return (
-      <div className="search offset-3 col-6" styles="">
-        <Combobox onSelect={handleSelect} >
+      <div className="search" >
+        <Combobox onSelect={handleSelect} styles="position:absolute;top:100px;left:30px">
           <ComboboxInput
             value={value}
             onChange={handleInput}
