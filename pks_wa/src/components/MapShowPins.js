@@ -7,7 +7,7 @@ import {
     InfoWindow,
 } from "@react-google-maps/api";
 import mapStyles from '../styles/mapStyles'
-
+import {Link} from 'react-router-dom';
 const libraries = ["places"];
 
 const center = {
@@ -82,6 +82,10 @@ export default function MapShowPins(props) {
                                     <div>
                                         <p>{selected.name}</p>
                                         <p>{selected.address}</p>
+                                        <Link to={`/ParkDetail/${selected.id}`}>
+                                            <button>Ver Parqueadero</button>
+                                        </Link>
+                                        
                                     </div>
                                     
                                 </InfoWindow>

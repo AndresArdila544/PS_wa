@@ -14,3 +14,31 @@ export const GET_PARKINGS = gql`
   }
 `;
 
+export const GET_PARKING_BY_ID = gql`
+  query par_getParkingByIdLoc(
+    $id: Int!
+  ){
+      par_getParkingByIdLoc(
+        id: $id
+      ){
+        id
+    name
+    pricePerMinute
+    totalSpaces
+    openHours{
+      opening
+      closing
+    }
+    address
+    location{
+      latitude
+      longitude
+    }
+    
+    
+      }
+  }
+    
+  
+`;
+
