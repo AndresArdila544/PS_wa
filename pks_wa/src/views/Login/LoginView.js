@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {
-  Link
+  Link,
+  useHistory
 } from 'react-router-dom'
 import TextField from '../../components/FormTextField';
 import { useMutation } from "@apollo/client";
@@ -9,8 +10,29 @@ import { LOGIN_MUTATION } from '../../GraphQL/Mutations';
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [login, { data, loading}] = useMutation(LOGIN_MUTATION)
-  var path;
+  const history = useHistory();
+  const sendClientOnClick = () => history.push('/Inicio');
+  const sendOwnerOnClick = () => history.push('/InicioDueno');
+  const [login, { data, loading}] = useMutation(LOGIN_MUTATION,{ onCompleted: (data) => {
+    console.log("Data from mutation", data)
+    if (data.ath_loginWA.owner) {
+      data.ath_loginWA.id = parseInt(data.ath_loginWA.id);
+    }
+    localStorage.setItem("LoggedId", data.ath_loginWA.id);
+    localStorage.setItem("LoggedOwner", data.ath_loginWA.owner);
+    localStorage.setItem("LoggedEmail", data.ath_loginWA.email);
+    
+    if (data.ath_loginWA.owner) {
+      sendOwnerOnClick()
+    } else {
+      sendClientOnClick()
+    }
+    console.log("LoggedId", localStorage.getItem("LoggedId"))
+    console.log("LoggedOwner", localStorage.getItem("LoggedOwner"))
+    console.log("LoggedEmail", localStorage.getItem("LoggedEmail"))
+
+  }
+  });
 
   const emailCallbackFunction = (childData) => {
     setEmail(childData)
@@ -19,34 +41,10 @@ const Login = () => {
   const passwordCallbackFunction = (childData) => {
     setPassword(childData)
   }
-  const thefunction = async () => {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        const data2 = logInMutation()
-        if(data2){
-          resolve(data2)
-        }else{
-          reject("error")
-        }
-      },1000)
-    })
-
-
-  } 
+  
   const loginVerfication = async () =>{
       
-      if (data.ath_loginWA.owner) {
-        data.ath_loginWA.id = parseInt(data.ath_loginWA.id);
-      }
-      localStorage.setItem("LoggedId", data.ath_loginWA.id);
-      localStorage.setItem("LoggedOwner", data.ath_loginWA.owner);
-      localStorage.setItem("LoggedEmail", data.ath_loginWA.email);
       
-      if(localStorage.getItem("LoggedOwner")){
-        path="/InicioDueno"
-      }else{
-        path="/Inicio"
-      }
       
       
   }
@@ -58,9 +56,25 @@ const Login = () => {
       variables: {
         email: email,
         password: password
-      }
+      },
+      
     });
-    
+    // {
+    //   console.log(login);
+    //   console.log(data);
+    //   if (data.ath_loginWA.owner) {
+    //     data.ath_loginWA.id = parseInt(data.ath_loginWA.id);
+    //   }
+    //   localStorage.setItem("LoggedId", data.ath_loginWA.id);
+    //   localStorage.setItem("LoggedOwner", data.ath_loginWA.owner);
+    //   localStorage.setItem("LoggedEmail", data.ath_loginWA.email);
+      
+    //   if(localStorage.getItem("LoggedOwner")){
+    //     path="/InicioDueno"
+    //   }else{
+    //     path="/Inicio"
+    //   }
+    // }
   
     return data;
     
@@ -77,9 +91,7 @@ const Login = () => {
               <TextField className="row" parentCallback={emailCallbackFunction} name="Correo" placeholder="Escriba su correo" type="text" />
               <TextField className="row" parentCallback={passwordCallbackFunction} name="Contraseña" placeholder="Contraseña" type="password" />
             </form>
-            <Link to={path} >
-              <button className="btn btn-outline-success col-4  py-2 offset-4" type="button" onClick={thefunction} >Ingresar</button>
-            </Link>
+              <button className="btn btn-outline-success col-4  py-2 offset-4" type="button" onClick={logInMutation} >Ingresar</button>
             <Link to="/SignUp">
               <button className="btn btn-outline-success col-4  py-2 offset-4" type="button">
                 Registate
