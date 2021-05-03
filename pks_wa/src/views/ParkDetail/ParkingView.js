@@ -31,7 +31,7 @@ const ParkingView = (props) => {
         <h3 className="col-6">Precio por minuto: ${parking.pricePerMinute}</h3>
         <h3 className="col-6">Cupos totales: {parking.totalSpaces}</h3>
         <h3 className="col-6">Horario:</h3>
-        {parking.openHours[0] ? (<><text className="col-6"> Lunes: {parking.openHours[0].opening} - {parking.openHours[0].closing} </text>
+        {parking.openHours[0] ? (<>
         <p><text className="col-6">Lunes: {parking.openHours[0].opening} - {parking.openHours[0].closing} </text>
         <text className="col-6">Martes: {parking.openHours[1].opening} - {parking.openHours[1].closing} </text></p>
         <p><text className="col-6">Miercoles: {parking.openHours[2].opening} - {parking.openHours[2].closing} </text>
