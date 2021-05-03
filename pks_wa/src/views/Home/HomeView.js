@@ -32,7 +32,6 @@ export default function Home (props) {
 
     return (
       <div>
-        <h1>Home View</h1>
         <MapShowPins obtainLocations={getlocations} />
       </div>
     );

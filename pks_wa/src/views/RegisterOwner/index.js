@@ -19,7 +19,7 @@ const RegisterOwner = () => {
   const [password2, setPassword2] = useState("");
   const [phone, setPhoneNumber] = useState("");
   const history = useHistory();
-  const sendClientOnClick = () => history.push('/');
+  const sendClientOnClick = () => history.go('/');
 
   const nameCallbackFunction = (childData) => {
     setName(childData)

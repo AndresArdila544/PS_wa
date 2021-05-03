@@ -137,3 +137,12 @@ mutation plu_postParkinglotuser(
         }
     }
 `;
+
+export const DELETE_PARKING_BY_ID = gql`
+mutation par_deleteParking(
+      $id:Int!
+    ){
+        par_deleteParking(id:$id)
+    }
+`;
+

@@ -7,7 +7,7 @@ import FormTextField from '../../components/FormTextField'
 import TimePicker from '../../components/TimePicker'
 import { useMutation } from "@apollo/client";
 import { CREATE_PARKING_MUTATION } from '../../GraphQL/Mutations';
-
+import { useHistory, Link } from 'react-router-dom'
 
 
 
@@ -32,7 +32,7 @@ const CreatePark = () => {
   const[openHoursOSU, setopenHoursOSU] = useState("00:00");
   const[openHoursCSU, setopenHoursCSU] = useState("00:00");
   const[marker,setMarker] = useState(null)
-
+  const history = useHistory();
 
   const nameCallbackFunction = (childData) => {
     setName(childData)
@@ -90,11 +90,10 @@ const CreatePark = () => {
   const openHoursCSUCallbackFunction = (childData) => {
     setopenHoursCSU(childData)
   }
-  
+  const sendClientOnClick = () => history.go('/InicioDueno');
   const[createParking,{data}] = useMutation(CREATE_PARKING_MUTATION, {
     onCompleted: (data) => {
-      alert("Creacion exitosa")
-      //sendClientOnClick() - send to home
+      sendClientOnClick()
     },
     onError: (data) => {
       alert("error Creacion")
@@ -188,6 +187,7 @@ const CreatePark = () => {
       <div className="col-7">
         <MapPutPin onLocationChange={setLocation}/>
         <div className="col-7 offset-5 pt-4">
+          <Link to={'/InicioDueno'}>
           <Button
             variant="contained"
             color="primary"
@@ -197,7 +197,7 @@ const CreatePark = () => {
             onClick={createParkingMutation}
           >
           Guardar Parking
-          </Button>
+          </Button></Link>
         </div>
         
 

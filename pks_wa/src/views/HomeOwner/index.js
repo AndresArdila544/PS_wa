@@ -42,7 +42,7 @@ export default function Home (props) {
 
     return (
       <div>
-        <h1>HomeOwner View</h1>
+        
         <MapShowPins obtainLocations={getlocations} />
         
       </div>

@@ -18,7 +18,7 @@ const Register = () => {
   const [age, setAge] = useState(null);
   const [phoneNumber, setPhoneNumber] = useState("");
   const history = useHistory();
-  const sendClientOnClick = () => history.push('/');
+  const sendClientOnClick = () => history.go('/');
 
   const nameCallbackFunction = (childData) => {
     setName(childData)
