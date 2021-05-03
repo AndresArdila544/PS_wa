@@ -6,13 +6,13 @@ import {useParams} from 'react-router-dom';
 
 const ParkingView = (props) => {
   const {id} = props.match.params
-  //const [getParking,{data,loading}] = useLazyQuery(GET_PARKING_BY_ID);
+  
   const {data,loading} = useQuery(GET_PARKING_BY_ID, {variables:{
     id: parseInt(id)
   }});
 
   if (loading) return <p>Loading ...</p>;
-  console.log(data);
+  
   //No se porque se deben poner al reves 🤷‍♂️
   const location = {    
     lat: data.par_getParkingByIdLoc.location.longitude,

@@ -15,7 +15,7 @@ const Login = () => {
   const sendOwnerOnClick = () => history.push('/InicioDueno');
   const [login, { data, loading,error }] = useMutation(LOGIN_MUTATION, {
     onCompleted: (data) => {
-      //console.log("Data from mutation", data)
+      
       if (data.ath_loginWA.owner) {
         data.ath_loginWA.id = parseInt(data.ath_loginWA.id);
       }
@@ -28,14 +28,12 @@ const Login = () => {
       } else {
         sendClientOnClick()
       }
-      console.log("LoggedId", localStorage.getItem("LoggedId"))
-      console.log("LoggedOwner", localStorage.getItem("LoggedOwner"))
-      console.log("LoggedEmail", localStorage.getItem("LoggedEmail"))
+      
 
     },
     onError: (error) => {
       alert("error login")
-      console.log(data)
+      
     }
 
   });

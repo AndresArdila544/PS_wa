@@ -61,13 +61,6 @@ const Register = () => {
 
   }
 
-  // const checkPassword = (p1, p2) => {
-  //   if(p1===p2){
-  //     return true
-  //   }
-  // }
-
-
   return (
     <div>
       <div className="container">

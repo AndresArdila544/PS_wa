@@ -7,7 +7,6 @@ import {
 } from "@react-google-maps/api";
 import mapStyles from '../styles/mapStyles'
 
-
 const mapContainerStyle = {
     height: "500px",
     width: "100%",
@@ -19,9 +18,6 @@ const options = {
     zoomControl:true,
 }
 
-
-
-//export default function MapParkingDetails({props = {location:{lng: 4.710989, lat: -74.072090 }}}){
 export default function MapParkingDetails(props){
 
     const { isLoaded, loadError } = useLoadScript({
@@ -41,7 +37,7 @@ export default function MapParkingDetails(props){
     if (loadError) return "Error loading Maps"
     if (!isLoaded) return "Loading Maps"
     const center = props.location;
-    console.log(props);
+    
     return (
             <GoogleMap
                 id="map"

@@ -46,6 +46,7 @@ const CreatePark = () => {
   const pricePerMinuteCallbackFunction = (childData) => {
     setpricePerMinute(parseInt(childData))
   }
+  
   //States for opening and closing hours
   const openHoursOMCallbackFunction = (childData) => {
     setopenHoursOM(childData)
@@ -90,7 +91,15 @@ const CreatePark = () => {
     setopenHoursCSU(childData)
   }
   
-  const[createParking,{error}] = useMutation(CREATE_PARKING_MUTATION);
+  const[createParking,{data}] = useMutation(CREATE_PARKING_MUTATION, {
+    onCompleted: (data) => {
+      alert("Creacion exitosa")
+      //sendClientOnClick() - send to home
+    },
+    onError: (data) => {
+      alert("error Creacion")
+    }
+  });
 
   const createParkingMutation =() =>{
     createParking({
@@ -119,10 +128,6 @@ const CreatePark = () => {
         address:direccion
       }
     })
-
-    if (error) {
-      console.warn(error);
-    }
   }
 
 

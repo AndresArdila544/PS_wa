@@ -38,7 +38,7 @@ const RegisterOwner = () => {
     setPassword2(childData)
   }
 
-  const [signUpOwner, { error }] = useMutation(SIGN_UP_MUTATION_OWNER, {
+  const [signUpOwner, {data }] = useMutation(SIGN_UP_MUTATION_OWNER, {
     onCompleted: (data) => {
       alert("Registro exitoso")
       sendClientOnClick()
@@ -49,11 +49,7 @@ const RegisterOwner = () => {
   });
 
   const signUpMutationOwner = () => {
-    console.log(username)
-    console.log(name)
-    console.log(email)
-    console.log(password)
-    console.log(phone)
+    
 
     signUpOwner({
       variables: {
@@ -64,11 +60,9 @@ const RegisterOwner = () => {
         phone: phone,
       }
     });
-    console.log();
+    
 
-    if (error) {
-      console.warn(error);
-    }
+    
   }
 
 

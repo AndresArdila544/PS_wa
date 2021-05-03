@@ -41,7 +41,7 @@ export default function MapShowPins(props) {
 
     markers = props.obtainLocations()
     
-    console.log(markers)
+    
     
     if (loadError) return "Error loading Maps"
     if (!isLoaded) return "Loading Maps"
@@ -82,7 +82,7 @@ export default function MapShowPins(props) {
                                     <div>
                                         <p>{selected.name}</p>
                                         <p>{selected.address}</p>
-                                        <Link to={`/ParkDetail/${selected.id}`}>
+                                        <Link to={`/ParkingDetail/${selected.id}`}>
                                             <button>Ver Parqueadero</button>
                                         </Link>
                                         

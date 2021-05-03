@@ -10,8 +10,8 @@ import HomeOwner  from '../views/HomeOwner';
 import Login  from '../views/Login/LoginView';
 import Register from '../views/Register/RegisterView';
 import RegisterOwner from '../views/RegisterOwner';
-import ParkDetail from '../views/ParkDetail/ParkingView';
-import CreatePark from '../views/CreatePark';
+import ParkingDetail from '../views/ParkingDetail/ParkingView';
+import CreateParking from '../views/CreateParking';
 
 class AppRouter extends Component {
     render() {
@@ -25,8 +25,8 @@ class AppRouter extends Component {
                         <Route path="/InicioDueno" component={ HomeOwner } />
                         <Route path="/SignUp" component={ Register } />
                         <Route path="/SignUpOwner" component={ RegisterOwner } />
-                        <Route path="/CreatePark" component={ CreatePark } />
-                        <Route path="/ParkDetail/:id" component={ ParkDetail } />
+                        <Route path="/CreateParking" component={ CreateParking } />
+                        <Route path="/ParkingDetail/:id" component={ ParkingDetail } />
                     </Switch>
               
             </Router>
