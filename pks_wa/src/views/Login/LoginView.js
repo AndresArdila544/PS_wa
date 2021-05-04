@@ -3,12 +3,18 @@ import {
   Link,
   useHistory
 } from 'react-router-dom'
+import Button from '@material-ui/core/Button';
 import TextField from '../../components/FormTextField';
 import { useMutation } from "@apollo/client";
 import { LOGIN_MUTATION } from '../../GraphQL/Mutations';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles,withStyles } from '@material-ui/core/styles';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import FingerprintIcon from '@material-ui/icons/Fingerprint';
+import DriveEtaIcon from '@material-ui/icons/DriveEta';
+import { purple } from '@material-ui/core/colors';
+import "../../App.css"
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -16,7 +22,15 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
+const ColorButton = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: purple[500],
+    '&:hover': {
+      backgroundColor: purple[700],
+    },
+  },
+}))(Button);
 
 
 const Login = () => {
@@ -79,28 +93,44 @@ const Login = () => {
 
   }
 
+  
+
+  
+  
+
+
+
   return (
     <div>
       <div className="container">
-        <h1 className="col-6 py-2">Login View</h1>
+        <img src="logo.svg" alt="logo" className="img App-logo"></img>
         <div className="row">
           <div className="col-sm">
-
+            <h1 className=" " >Park-In-Space</h1>
             <form>
               <TextField className="row" parentCallback={emailCallbackFunction} name="Correo" placeholder="Escriba su correo" type="text" />
               <TextField className="row" parentCallback={passwordCallbackFunction} name="Contraseña" placeholder="Contraseña" type="password" />
             </form>
-            <button className="btn btn-outline-success col-4  py-2 offset-4" type="button" onClick={logInMutation} >Ingresar</button>
-            <Link to="/SignUp">
-              <button className="btn btn-outline-success col-4  py-2 offset-4" type="button">
-                Registate
-            </button>
-            </Link>
-            <Link to="/SignUpOwner">
-              <button className="btn btn-outline-success col-4  py-2 offset-4" type="button">
-                Registate como aliado
-            </button>
-            </Link>
+            <div className="col-12 py-2 ">
+              <ColorButton className="btn col-12" type="button" size="large" startIcon={<FingerprintIcon/>} onClick={logInMutation} >
+                Ingresar
+              </ColorButton>
+            </div>
+            <div className="col-12 py-2">
+              <Link to="/SignUp">
+                <ColorButton className="btn col-12" type="button" size="large" startIcon={<AccountCircleIcon/>}>
+                  Registrate
+                </ColorButton>
+              </Link>
+            </div>
+            <div className="col-12 py-2">
+              <Link to="/SignUpOwner">
+                <ColorButton className="btn col-12" type="button" size="large" startIcon={<DriveEtaIcon/>}BB>
+                  Registate como aliado
+                </ColorButton>
+              </Link>
+            </div>
+            
           </div>
         </div>
 
