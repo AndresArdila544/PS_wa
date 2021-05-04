@@ -91,19 +91,20 @@ const CreatePark = () => {
     setopenHoursCSU(childData)
   }
   const sendClientOnClick = () => history.go('/InicioDueno');
-  const[createParking,{data}] = useMutation(CREATE_PARKING_MUTATION, {
+  const[createParking,{data,error}] = useMutation(CREATE_PARKING_MUTATION, {
     onCompleted: (data) => {
       sendClientOnClick()
     },
-    onError: (data) => {
+    onError: (error) => {
       alert("error Creacion")
+      console.log(error)
     }
   });
 
   const createParkingMutation =() =>{
     createParking({
       variables: {
-        idplu: parseInt("9"),
+        idplu: parseInt(localStorage.getItem("LoggedId")),
         name: name,
         pricePerMinute: parseInt(pricePerMinute),
         totalSpaces:parseInt(totalSpaces),

@@ -6,7 +6,18 @@ import {
   Link,
   useHistory
 } from 'react-router-dom'
-
+import { purple } from '@material-ui/core/colors';
+import { makeStyles,withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+const ColorButton = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: purple[500],
+    '&:hover': {
+      backgroundColor: purple[700],
+    },
+  },
+}))(Button);
 
 
 const Register = () => {
@@ -76,8 +87,9 @@ const Register = () => {
               <TextField className="row " parentCallback={password2CallbackFunction} name="Repetir Contraseña" placeholder="Repita su contraseña" type="password" />
             </form>
 
-            <button className="btn btn-outline-success col-4  py-2 offset-4" type="button" onClick={signUpMutation}>Registrarse</button>
-
+            <div className="col-12 py-2">
+              <ColorButton className="btn col-12" type="button" onClick={signUpMutation}>Registrarse</ColorButton>
+            </div>
           </div>
         </div>
 
