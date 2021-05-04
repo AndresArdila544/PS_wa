@@ -29,7 +29,7 @@ const options = {
     zoomControl:true,
 }
 const mapContainerStyle = {
-    height: "100vh",
+    height: "89vh",
     width: "100%",
     border_radius: "15px",
 };
