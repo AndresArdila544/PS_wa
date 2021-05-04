@@ -53,6 +53,7 @@
   animation:App-logo-spin
 }
 
+
 .deleteicon {
   display: flex;
   justify-content: flex-end;
@@ -64,8 +65,6 @@
 .divbtns {
   display: flex;
 }
-
-
 
 @keyframes App-logo-spin {
   from {
