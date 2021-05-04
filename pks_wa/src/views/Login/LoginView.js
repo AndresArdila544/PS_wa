@@ -105,8 +105,13 @@ const Login = () => {
       <div className="container">
         <img src="logo.svg" alt="logo" className="img App-logo"></img>
         <div className="row">
-          <div className="col-sm">
-            <h1 className=" " >Park-In-Space</h1>
+          <div className="col-sm py-4">
+            <div className="TitleDiv">
+              <h1 class="home-title h1Title offset-4 col-4">
+                <span>Park-In-Space</span>
+              </h1>
+            </div>
+            
             <form>
               <TextField className="row" parentCallback={emailCallbackFunction} name="Correo" placeholder="Escriba su correo" type="text" />
               <TextField className="row" parentCallback={passwordCallbackFunction} name="Contraseña" placeholder="Contraseña" type="password" />
