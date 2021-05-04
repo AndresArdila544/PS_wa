@@ -53,8 +53,10 @@
   animation:App-logo-spin
 }
 
-
-
+.liimage {
+  line-height: 1.5em;
+  list-style-image: url('./clock.png');
+}
 
 
 @keyframes App-logo-spin {
