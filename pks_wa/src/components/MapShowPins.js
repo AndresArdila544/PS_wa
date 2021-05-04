@@ -14,6 +14,9 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import { DELETE_PARKING_BY_ID } from '../GraphQL/Mutations';
 import { useMutation } from "@apollo/client";
 import { makeStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 const libraries = ["places"];
 
 const center = {
@@ -101,7 +104,7 @@ export default function MapShowPins(props) {
                 >
                     {markers.map((info)=>(
                         <Marker
-                            key={`${info.location.latitude}-${info.location.longitude}`}
+                            key={parseFloat(`${info.location.latitude}-${info.location.longitude}`)}
                             position={{lat: parseFloat(info.location.latitude), lng: parseFloat(info.location.longitude)}}
                             icon = {{
                                 url: '/Pin.svg',
@@ -109,24 +112,68 @@ export default function MapShowPins(props) {
                             }}
                             onClick={() => {
                                 setSelected(info)
-                                
                             }}  
-                        />
+                        >
+                            {
+                              selected === info ? (
+                                <InfoWindow
+                                    
+                                    onCloseClick={() => {
+                                        setSelected(null);
+                                    }}
+                                    className=""
+                                >
+                                    <div>
+                                        <h2>{selected.name}</h2>
+                                        <h5>{selected.address}</h5>
+                                        <div className="divbtns">
+                                        <Link to={`/ParkingDetail/${selected.id}`}
+                                            style={{ textDecoration: "none", color: "inherit" }}
+                                            className="watchbtn">
+                                            <Button >
+                                                Ver Parqueadero
+                                            </Button>
+                                        </Link>
+                                        
+                                        {localStorage.getItem('LoggedOwner') === "true" ? 
+                                            <Link to={'/InicioDueno'}
+                                                style={{ textDecoration: "none", color: "inherit" }}
+                                                className="deleteicon"
+                                                >
+                                                <IconButton 
+                                                    onClick={(event) => {event.stopPropagation();deleteParking(selected.id)}}>
+                                                    <DeleteForeverIcon />
+                                                </IconButton>
+                                            </Link>
+                                        :
+                                            null
+                                        }
+                                        </div>
+                                        
+                                        
+                                    </div>
+                                    
+                                </InfoWindow>
+                    ) : null  
+                            }
+                        </Marker>
 
                     ))};
-                    {selected ? (
+                    {/* {selected ? (
                                 <InfoWindow
-                                    position={{ lat: selected.location.latitude, lng: selected.location.longitude }}
+                                    
                                     onCloseClick={() => {
                                         setSelected(null);
                                     }}
 
                                 >
                                     <div>
-                                        <p>{selected.name}</p>
-                                        <p>{selected.address}</p>
+                                        <h2>{selected.name}</h2>
+                                        <h5>{selected.address}</h5>
                                         <Link to={`/ParkingDetail/${selected.id}`}>
-                                            <button>Ver Parqueadero</button>
+                                            <Button >
+                                                Ver Parqueadero
+                                            </Button>
                                         </Link>
                                         
                                         {localStorage.getItem('LoggedOwner') === "true" ? 
@@ -145,7 +192,7 @@ export default function MapShowPins(props) {
                                     </div>
                                     
                                 </InfoWindow>
-                    ) : null}
+                    ) : null} */}
                  
                     
                     
