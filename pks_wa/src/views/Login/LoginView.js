@@ -131,7 +131,7 @@ const Login = () => {
             <div className="col-12 py-2">
               <Link to="/SignUpOwner">
                 <ColorButton className="btn col-12" type="button" size="large" startIcon={<DriveEtaIcon/>}BB>
-                  Registate como aliado
+                  Registrate como aliado
                 </ColorButton>
               </Link>
             </div>

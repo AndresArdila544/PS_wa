@@ -6,8 +6,18 @@ import {
   Link,
   useHistory
 } from 'react-router-dom'
-
-
+import { purple } from '@material-ui/core/colors';
+import { makeStyles,withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+const ColorButton = withStyles((theme) => ({
+  root: {
+    color: theme.palette.getContrastText(purple[500]),
+    backgroundColor: purple[500],
+    '&:hover': {
+      backgroundColor: purple[700],
+    },
+  },
+}))(Button);
 
 
 const RegisterOwner = () => {
@@ -70,9 +80,9 @@ const RegisterOwner = () => {
   return (
     <div>
       <div className="container">
-        <h1 className="col-6 py-2">RegisterOwner View</h1>
+        <h1 className="col-6 py-2">Registrar Aliado</h1>
         <div className="row">
-          <div className="col-sm">
+          <div className="col-12">
             <form>
               <TextField className="row " parentCallback={nameCallbackFunction} name="Nombre" placeholder="Escriba su nombre" type="text" />
               <TextField className="row " parentCallback={emailCallbackFunction} name="Correo" placeholder="Escriba su correo" type="text" />
@@ -80,7 +90,9 @@ const RegisterOwner = () => {
               <TextField className="row " parentCallback={passwordCallbackFunction} name="Contraseña" placeholder="Escriba su contraseña" type="password" />
               <TextField className="row " parentCallback={password2CallbackFunction} name="Repetir Contraseña" placeholder="Repita su contraseña" type="password" />
             </form>
-            <button className="btn btn-outline-success col-4  py-2 offset-4" type="button" onClick={signUpMutationOwner}>Registrarse</button>
+            <div className="col-12 py-2">
+              <ColorButton className="btn col-12" type="button" onClick={signUpMutationOwner}>Registrarse como Aliado</ColorButton>
+            </div>
           </div>
         </div>
 
