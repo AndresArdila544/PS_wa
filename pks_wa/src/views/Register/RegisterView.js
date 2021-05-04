@@ -75,7 +75,7 @@ const Register = () => {
   return (
     <div>
       <div className="container">
-        <h1 className="col-6 py-2">Register View</h1>
+        <h1 className="col-6 py-2">Registrar nuevo usuario</h1>
         <div className="row">
           <div className="col-sm">
             <form>

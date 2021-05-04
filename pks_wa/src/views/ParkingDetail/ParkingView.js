@@ -1,9 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import MapParkingDetails from '../../components/MapParkingDetails'
-import { useQuery, useLazyQuery } from '@apollo/client'
+import { useQuery} from '@apollo/client'
 import { GET_PARKING_BY_ID } from '../../GraphQL/Querys';
-import { useParams } from 'react-router-dom';
-import AccessTimeIcon from '@material-ui/icons/AccessTime';
 
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
