@@ -30,6 +30,10 @@ import MeetingRoomSharpIcon from "@material-ui/icons/MeetingRoomSharp";
 import HomeSharpIcon from "@material-ui/icons/HomeSharp";
 import { useHistory, Link } from "react-router-dom";
 import "../index.css";
+import { Toast} from 'react-bootstrap';
+import {useState} from 'react';
+import { getToken, onMessageListener } from '../../src/firebase';
+import '../../src/firebase'
 
 const drawerWidth = 260;
 const useStyles = makeStyles((theme) => ({
@@ -100,6 +104,17 @@ export default function AppRouter() {
   const theme = useTheme();
   //const history = useHistory();
   //const closeSesionOnClick = () => history.go('/');
+  const [show, setShow] = useState(false);
+  const [isTokenFound, setTokenFound] = useState(false);
+  const [notification, setNotification] = useState({title: '', body: ''});
+  getToken(setTokenFound);
+
+  onMessageListener().then(payload => {
+    setShow(true);
+    setNotification({title: payload.notification.title, body: payload.notification.body})
+    console.log(payload);
+  }).catch(err => console.log('failed: ', err));
+
   const [open, setOpen] = React.useState(false);
 
   const handleDrawerOpen = () => {
@@ -251,6 +266,23 @@ export default function AppRouter() {
 
         <main className={classes.content}>
           <div className={classes.toolbar} />
+          <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide animation style={{
+          position: 'absolute',
+          top: 20,
+          right: 20,
+          minWidth: 200
+        }}>
+          <Toast.Header>
+            <img
+              src="holder.js/20x20?text=%20"
+              className="rounded mr-2"
+              alt=""
+            />
+            <strong className="mr-auto">{notification.title}</strong>
+            <small>just now</small>
+          </Toast.Header>
+          <Toast.Body>{notification.body}</Toast.Body>
+        </Toast>
           <Switch>
             <Route path="/Inicio" component={Home} />
             <Route exact path="/" component={Login} />
