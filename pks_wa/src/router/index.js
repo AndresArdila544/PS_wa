@@ -266,6 +266,16 @@ export default function AppRouter() {
 
         <main className={classes.content}>
           <div className={classes.toolbar} />
+          
+          <Switch>
+            <Route path="/Inicio" component={Home} />
+            <Route exact path="/" component={Login} />
+            <Route path="/InicioDueno" component={HomeOwner} />
+            <Route path="/SignUp" component={Register} />
+            <Route path="/SignUpOwner" component={RegisterOwner} />
+            <Route path="/CreateParking" component={CreateParking} />
+            <Route path="/ParkingDetail/:id" component={ParkingDetail} />
+          </Switch>
           <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide animation style={{
           position: 'absolute',
           top: 20,
@@ -283,15 +293,6 @@ export default function AppRouter() {
           </Toast.Header>
           <Toast.Body>{notification.body}</Toast.Body>
         </Toast>
-          <Switch>
-            <Route path="/Inicio" component={Home} />
-            <Route exact path="/" component={Login} />
-            <Route path="/InicioDueno" component={HomeOwner} />
-            <Route path="/SignUp" component={Register} />
-            <Route path="/SignUpOwner" component={RegisterOwner} />
-            <Route path="/CreateParking" component={CreateParking} />
-            <Route path="/ParkingDetail/:id" component={ParkingDetail} />
-          </Switch>
         </main>
       </div>
     </Router>
