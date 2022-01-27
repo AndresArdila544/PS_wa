@@ -50,10 +50,7 @@ export default function MapParkingDetails(props){
                         <Marker
                             key={`${center.lat}-${center.lng}`}
                             position={{lat: parseFloat(center.lat), lng: parseFloat(center.lng)}}
-                            icon = {{
-                                url: '/Pin.svg',
-                                scaledSize: new window.google.maps.Size(50, 50),
-                            }}                            
+                            icon = {{}}                            
                         />  
             </GoogleMap>
     );

@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
-import { useQuery} from "@apollo/client";
-import { GET_PARKINGS, GET_LOCATION } from '../../GraphQL/Querys';
 import { makeStyles } from '@material-ui/core/styles';
 import MapShowPins from '../../components/MapShowPins'
-import Backdrop from '@material-ui/core/Backdrop';
+
 import CircularProgress from '@material-ui/core/CircularProgress';
-import { set } from 'date-fns';
+
+const axios = require('axios')
+const url = `http://localhost:8080/ApiRest/Luminary/`
 
 const useStyles = makeStyles((theme) => ({
   backdrop: {
@@ -15,25 +15,41 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Home (props) {
-    
-    const {data,loading} = useQuery(GET_PARKINGS)
-    const classes = useStyles();
-    if (loading) return (
-      
-      <Backdrop className={classes.backdrop} open={loading}>
-        <CircularProgress color="inherit" />
-      </Backdrop>
-    );
 
-    function getlocations () {
-       return data.par_getParkingsLocation
-    }
 
-    return (
-      <div>
-        <MapShowPins obtainLocations={getlocations} />
-      </div>
-    );
-  
+
+
+export default function Home(props) {
+
+  //AXIOS
+  const [isLoading, setLoading] = React.useState(true);
+  const [pokemon, setPokemon] = React.useState();
+  React.useEffect(() => {
+    axios.get(`${url}locations`).then(response => {
+      setPokemon(response.data);
+      setLoading(false);
+    });
+  }, []);
+  //AXIOS
+
+
+  const classes = useStyles();
+
+  //AXIOS
+  if (isLoading) {
+    return <div>
+      <CircularProgress color="inherit" />
+    </div>;
+  }
+  //AXIOS
+  function getlocations() {
+    return pokemon
+  }
+
+  return (
+    <div>
+      <MapShowPins obtainLocations={getlocations} />
+    </div>
+  );
+
 }

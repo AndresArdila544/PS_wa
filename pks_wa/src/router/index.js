@@ -6,7 +6,8 @@ import Login from "../views/Login/LoginView";
 import Register from "../views/Register/RegisterView";
 import RegisterOwner from "../views/RegisterOwner";
 import ParkingDetail from "../views/ParkingDetail/ParkingView";
-import CreateParking from "../views/CreateParking/CreateParkingView";
+import CreateLuminary from "../views/CreateAssets/CreateLuminaryView";
+import CreatePost from "../views/CreateAssets/CreatePostView";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import clsx from "clsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -46,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
-    background: "#381356",
+    background: "BLACK",
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -153,9 +154,9 @@ export default function AppRouter() {
               <MenuIcon />
             </IconButton>
 
-            <img src="logo.svg" width="60px" alt="logo" className="p-1"></img>
+            {/*<img src="logo.svg" width="60px" alt="logo" className="p-1"></img>*/}
             <Typography variant="h6" noWrap>
-              Park-in-Space
+              Sistema de Información Alumbrado Público San José del Guaviare
             </Typography>
           </Toolbar>
         </AppBar>
@@ -209,15 +210,10 @@ export default function AppRouter() {
               </Link>
             ): null}
 
-                
-            
-                   
-              
-           
 
             {localStorage.getItem("LoggedOwner") === "true" ? (
               <Link
-                to={"/CreateParking"}
+                to={"/CreateLuminary"}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
                 <ListItem button key={localStorage.getItem("LoogedEmail")}>
@@ -228,7 +224,6 @@ export default function AppRouter() {
                 </ListItem>
               </Link>
             ) : null}
-
 
             {localStorage.getItem("LoggedId") ? (
               <Link
@@ -256,11 +251,6 @@ export default function AppRouter() {
               </Link> 
             }
 
-            
-
-
-
-
           </List>
         </Drawer>
 
@@ -273,7 +263,8 @@ export default function AppRouter() {
             <Route path="/InicioDueno" component={HomeOwner} />
             <Route path="/SignUp" component={Register} />
             <Route path="/SignUpOwner" component={RegisterOwner} />
-            <Route path="/CreateParking" component={CreateParking} />
+            <Route path="/CreateLuminary" component={CreateLuminary} />
+            <Route path="/CreatePost" component={CreatePost} />
             <Route path="/ParkingDetail/:id" component={ParkingDetail} />
           </Switch>
           <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide animation style={{

@@ -7,7 +7,7 @@ import {
     InfoWindow,
 } from "@react-google-maps/api";
 import mapStyles from '../styles/mapStyles'
-import {Link, useHistory} from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import "../App.css";
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -20,13 +20,14 @@ import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 const libraries = ["places"];
 
 const center = {
-    lat: 4.710989,
-    lng: -74.072090
+    lat: 2.568449113657979,
+    lng: -72.63973043023606
 };
+
 const options = {
-    styles:mapStyles,
+    styles: mapStyles,
     disableDefaultUI: true,
-    zoomControl:true,
+    zoomControl: true,
 }
 const mapContainerStyle = {
     height: "89vh",
@@ -35,11 +36,11 @@ const mapContainerStyle = {
 };
 const useStyles = makeStyles((theme) => ({
     backdrop: {
-      zIndex: theme.zIndex.drawer + 1,
-      color: '#fff',
+        zIndex: theme.zIndex.drawer + 1,
+        color: '#fff',
     },
 }));
-  
+
 
 
 export default function MapShowPins(props) {
@@ -52,114 +53,117 @@ export default function MapShowPins(props) {
     var [markers, setMarkers] = React.useState([]);
     var [selected, setSelected] = React.useState(null)
     const sendOwnerOnClick = () => history.go('/InicioDueno');
-    const [deletepark, { data, loading ,error }] = useMutation(DELETE_PARKING_BY_ID, {
+    const [deletepark, { data, loading, error }] = useMutation(DELETE_PARKING_BY_ID, {
         onCompleted: (data) => {
-          sendOwnerOnClick()
+            sendOwnerOnClick()
         },
         onError: (error) => {
-          console.log("error cant delete parking")   
+            console.log("error cant delete parking")
         }
-    
-      });
-    if (loading) return ( 
+
+    });
+    if (loading) return (
         <Backdrop className={classes.backdrop} open={loading}>
-          <CircularProgress color="inherit" />
+            <CircularProgress color="inherit" />
         </Backdrop>
     );
 
+
+
+
     markers = props.obtainLocations()
-    
+
     const deleteParking = async (id) => {
         await deletepark({
-          variables: {
-            id:parseInt(id)
-          },
-    
+            variables: {
+                id: parseInt(id)
+            },
+
         });
     }
 
-    
-    
-    
     if (loadError) return "Error loading Maps"
     if (!isLoaded) return "Loading Maps"
     return (
         <div>
             <div className="box">
-            {localStorage.getItem('LoggedOwner') === "true" ?
-                <h1 className="Titulo">Mis Parqueaderos</h1>
-            :
-                <h1 className="Titulo">Parqueaderos disponibles</h1>
-            }</div>
+                {localStorage.getItem('LoggedOwner') === "true" ?
+                    <h1 className="Titulo"></h1>
+                    :
+                    <h1 className="Titulo"></h1>
+                }</div>
             <GoogleMap
                 id="map"
-                style={{borderRadius:"300px"}}
+                style={{ borderRadius: "300px" }}
                 mapContainerStyle={mapContainerStyle}
-                zoom={13}
+                zoom={15}
                 center={center}
                 options={options}
                 onClick={() => {
                     setSelected(null)
                 }}
-                >
-                    {markers.map((info)=>(
-                        <Marker
-                            key={parseFloat(`${info.location.latitude}-${info.location.longitude}`)}
-                            position={{lat: parseFloat(info.location.latitude), lng: parseFloat(info.location.longitude)}}
-                            icon = {{
-                                url: '/Pin.svg',
-                                scaledSize: new window.google.maps.Size(70, 70),
-                            }}
-                            onClick={() => {
-                                setSelected(info)
-                            }}  
-                        >
-                            {
-                              selected === info ? (
+            >
+                {markers.map((info) => (
+                    <Marker
+                        key={parseInt(info[0])}
+                        position={{ lat: parseFloat(info[1]), lng: parseFloat(info[2]) }}
+                        icon={info[3]==='Mantener'?{
+                            url: '/pinverde.png',
+                            scaledSize: new window.google.maps.Size(16, 16),
+                        }:{
+                            url: '/pinrojo.png',
+                            scaledSize: new window.google.maps.Size(16, 16),
+                        }}
+
+                        onClick={() => {
+                            setSelected(info)
+                        }}
+                    >
+                        {
+                            selected === info ? (
                                 <InfoWindow
-                                    
+
                                     onCloseClick={() => {
                                         setSelected(null);
                                     }}
                                     className=""
                                 >
                                     <div>
-                                        <h2>{selected.name}</h2>
-                                        <h5>{selected.address}</h5>
+                                        <h2>Luminaria #{selected[0]}</h2>
                                         <div className="divbtns">
-                                        <Link to={`/ParkingDetail/${selected.id}`}
-                                            style={{ textDecoration: "none", color: "inherit" }}
-                                            className="watchbtn">
-                                            <Button >
-                                                Ver Parqueadero
-                                            </Button>
-                                        </Link>
-                                        
-                                        {localStorage.getItem('LoggedOwner') === "true" ? 
-                                            <Link to={'/InicioDueno'}
+                                            <Link to={`/ParkingDetail/${selected[0]}`}
                                                 style={{ textDecoration: "none", color: "inherit" }}
-                                                className="deleteicon"
-                                                >
-                                                <IconButton 
-                                                    onClick={(event) => {event.stopPropagation();deleteParking(selected.id)}}>
-                                                    <DeleteForeverIcon />
-                                                </IconButton>
+                                                className="watchbtn">
+                                                <Button >
+                                                    Ver Luminaria
+                                                </Button>
                                             </Link>
-                                        :
-                                            null
-                                        }
-                                        </div>
-                                        
-                                        
-                                    </div>
-                                    
-                                </InfoWindow>
-                    ) : null  
-                            }
-                        </Marker>
 
-                    ))};
-                    {/* {selected ? (
+                                            {localStorage.getItem('LoggedOwner') === "true" ?
+                                                <Link to={'/InicioDueno'}
+                                                    style={{ textDecoration: "none", color: "inherit" }}
+                                                    className="deleteicon"
+                                                >
+                                                    <IconButton
+                                                        onClick={(event) => { event.stopPropagation(); deleteParking(selected.id) }}>
+                                                        <DeleteForeverIcon />
+                                                    </IconButton>
+                                                </Link>
+                                                :
+                                                null
+                                            }
+                                        </div>
+
+
+                                    </div>
+
+                                </InfoWindow>
+                            ) : null
+                        }
+                    </Marker>
+
+                ))};
+                {/* {selected ? (
                                 <InfoWindow
                                     
                                     onCloseClick={() => {
@@ -193,10 +197,10 @@ export default function MapShowPins(props) {
                                     
                                 </InfoWindow>
                     ) : null} */}
-                 
-                    
-                    
-                    
+
+
+
+
             </GoogleMap>
         </div>
     );

@@ -7,7 +7,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '../../components/FormTextField';
 import { useMutation } from "@apollo/client";
 import { LOGIN_MUTATION } from '../../GraphQL/Mutations';
-import { makeStyles,withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
@@ -24,10 +24,10 @@ const useStyles = makeStyles((theme) => ({
 
 const ColorButton = withStyles((theme) => ({
   root: {
-    color: theme.palette.getContrastText(purple[500]),
-    backgroundColor: purple[500],
+    color: theme.palette.getContrastText('#000'),
+    backgroundColor: '#000',
     '&:hover': {
-      backgroundColor: purple[700],
+      backgroundColor: '#000',
     },
   },
 }))(Button);
@@ -40,9 +40,9 @@ const Login = () => {
   const classes = useStyles();
   const sendClientOnClick = () => history.push('/Inicio');
   const sendOwnerOnClick = () => history.push('/InicioDueno');
-  const [login, { data, loading,error }] = useMutation(LOGIN_MUTATION, {
+  const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION, {
     onCompleted: (data) => {
-      
+
       if (data.ath_loginWA.owner) {
         data.ath_loginWA.id = parseInt(data.ath_loginWA.id);
       }
@@ -55,17 +55,17 @@ const Login = () => {
       } else {
         sendClientOnClick()
       }
-      
+
 
     },
     onError: (error) => {
       alert("error login")
-      
+
     }
 
   });
   if (loading) return (
-      
+
     <Backdrop className={classes.backdrop} open={loading}>
       <CircularProgress color="inherit" />
     </Backdrop>
@@ -93,49 +93,44 @@ const Login = () => {
 
   }
 
-  
-
-  
-  
-
-
-
   return (
     <div>
       <div className="container">
-        <img src="logo.svg" alt="logo" className="img App-logo"></img>
         <div className="row">
           <div className="col-sm py-4">
             <div className="TitleDiv">
-              <h1 class="home-title h1Title offset-4 col-4">
-                <span>Park-In-Space</span>
+              <h1 class="home-title h1Title  col-12">
+                Sistema de Información Alumbrado Público
+                <br />
+                San José del Guaviare
               </h1>
             </div>
-            
+
             <form>
               <TextField className="row" parentCallback={emailCallbackFunction} name="Correo" placeholder="Escriba su correo" type="text" />
               <TextField className="row" parentCallback={passwordCallbackFunction} name="Contraseña" placeholder="Contraseña" type="password" />
             </form>
             <div className="col-12 py-2 ">
-              <ColorButton className="btn col-12" type="button" size="large" startIcon={<FingerprintIcon/>} onClick={logInMutation} >
+              <ColorButton className="btn col-12" type="button" size="large" startIcon={<FingerprintIcon />} onClick={logInMutation} >
                 Ingresar
               </ColorButton>
             </div>
             <div className="col-12 py-2">
               <Link to="/SignUp">
-                <ColorButton className="btn col-12" type="button" size="large" startIcon={<AccountCircleIcon/>}>
+                <ColorButton className="btn col-12" type="button" size="large" startIcon={<AccountCircleIcon />}>
                   Registrate
                 </ColorButton>
               </Link>
             </div>
-            <div className="col-12 py-2">
+
+            {/*<div className="col-12 py-2">
               <Link to="/SignUpOwner">
                 <ColorButton className="btn col-12" type="button" size="large" startIcon={<DriveEtaIcon/>}BB>
                   Registrate como aliado
                 </ColorButton>
               </Link>
-            </div>
-            
+  </div>*/}
+
           </div>
         </div>
 

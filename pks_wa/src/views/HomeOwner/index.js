@@ -9,6 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 
+
 const useStyles = makeStyles((theme) => ({
   backdrop: {
     zIndex: theme.zIndex.drawer + 1,
@@ -20,9 +21,8 @@ const useStyles = makeStyles((theme) => ({
 export default function Home (props) {
     
     const {data,loading} = useQuery(GET_PARKINGS_BY_HOME_OWNER_ID,{variables:{id:parseInt(localStorage.getItem('LoggedId'))}})
+    //const {data,loading} = makeGetLuminary();
     const classes = useStyles();
-    
-
 
     if (loading) return (
       
@@ -30,15 +30,10 @@ export default function Home (props) {
         <CircularProgress color="inherit" />
       </Backdrop>
     );
-    
-
 
     function getlocations () {
        return data.par_getParkingByIdPluLoc
     }
-
-    
-
 
     return (
       <div>
