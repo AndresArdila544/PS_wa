@@ -1,93 +1,106 @@
 import React, { useState } from 'react';
-import axios from 'axios'
-
+import Button from '@material-ui/core/Button';
+import SaveIcon from '@material-ui/icons/Save';
 import FormTextField from '../../components/FormTextField'
-import { useMutation } from "@apollo/client";
-import { CREATE_PARKING_MUTATION } from '../../GraphQL/Mutations';
 import { useHistory, Link } from 'react-router-dom'
-
 import "react-widgets/styles.css";
+import CircularProgress from '@material-ui/core/CircularProgress';
+import {makePostPost} from '../../API/api';
 
-const CreatePost = () => {
+const axios = require('axios');
+const url = `http://localhost:8080/ApiRest/Lampost/`
 
-  const [name, setName] = useState("");
-  const [direccion, setdireccion] = useState("");
-  const [totalSpaces, settotalSpaces] = useState(0);
-  const [pricePerMinute, setpricePerMinute] = useState(0);
-  const [marker, setMarker] = useState(null)
+
+
+export default function CreatePost(props) {
+
+  const [type, setType] = useState("");
+  const [material, setMaterial] = useState("");
+  const [length, setLength] = useState("");
+  const [infraType, setInfraType] = useState("");
+  const [network, setNetwork] = useState("");
+  const [isLoading, setLoading] = React.useState(true);
+  const [pokemon, setPokemon] = React.useState();
   const history = useHistory();
 
-  const nameCallbackFunction = (childData) => {
-    setName(childData)
+  const typeCallbackFunction = (childData) => {
+    setType(childData)
   }
-  const direccionCallbackFunction = (childData) => {
-    setdireccion(childData)
+  const materialCallbackFunction = (childData) => {
+    setMaterial(childData)
   }
-  const totalSpacesCallbackFunction = (childData) => {
-    settotalSpaces(parseInt(childData))
+  const lengthCallbackFunction = (childData) => {
+    setLength(childData)
   }
-  const pricePerMinuteCallbackFunction = (childData) => {
-    setpricePerMinute(parseInt(childData))
+  const infraTypeCallbackFunction = (childData) => {
+    setInfraType(childData)
   }
+  const infraNetworkCallbackFunction = (childData) => {
+    setNetwork(childData)
+  }
+  //AXIOS
+  
+  React.useEffect(() => {
+    axios.get(`${url}last`).then(response => {
+      setPokemon(response.data);
+      setLoading(false);
+    });
+  }, []);
+
   const sendClientOnClick = () => history.go('/InicioDueno');
-  const [createLuminary, { data, error }] = useMutation(CREATE_PARKING_MUTATION, {
-    onCompleted: (data) => {
-      sendClientOnClick()
-    },
-    onError: (error) => {
-      alert("error Creacion")
-      console.log(error)
+
+  const createPost=()=>{
+    let post={
+      idLampost:pokemon+1,
+      type:type,
+      material:material,
+      length:length,
+      infraType:infraType,
+      network:network
     }
-  });
-
-  const createParkingMutation = () => {
-    createLuminary({
-      variables: {
-        idplu: parseInt(localStorage.getItem("LoggedId")),
-        name: name,
-        pricePerMinute: parseInt(pricePerMinute),
-        totalSpaces: parseInt(totalSpaces),
-        usedSpaces: parseInt("0"),
-        latitude: parseFloat(marker.lat),
-        longitude: parseFloat(marker.lng),
-        address: direccion
-      }
-    })
+    console.log("poste:")
+    console.log(post);
+    makePostPost(post);
   }
+  
+  
+  //AXIOS
 
-  const [value, setValue] = useState("1");
-
-  var address = null
-  function setLocation(childData) {
-    setMarker(childData)
-    getAddress(childData)
-  }
-
-  async function getAddress({ lat, lng }) {
-    let res = await axios.get(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.REACT_APP_PKS_GOOGLE_MAPS_API}`);
-    if (res.data.status == "OK") {
-      address = res.data.results[0].formatted_address
-      document.getElementById("Direccion").value = address
-      var element = document.getElementById("Direccion")
-      var ev2 = new Event('input', { bubbles: true })
-      element.dispatchEvent(ev2)
-    }
+   //AXIOS
+   if (isLoading) {
+    return <div>
+      <CircularProgress color="inherit" />
+    </div>;
   }
 
   return (
     <div className="row">
-      <h1 className="col-12">Registrar Poste</h1>
-      <div className="col-5 pt-3">
-        <h5>Registrando poste con ID: 1</h5>
-        <FormTextField name="Tipo" placeholder="Tipo" type="number" parentCallback={nameCallbackFunction} />
-        <FormTextField name="Material" placeholder="Material" type="text" parentCallback={totalSpacesCallbackFunction} />
-        <FormTextField name="Altura" placeholder="Altura" type="text" parentCallback={pricePerMinuteCallbackFunction} />
-        <FormTextField name="SubTipo" placeholder="SubTipo" type="text" parentCallback={pricePerMinuteCallbackFunction} />
+      <h1 className="col-12 offset-3 ">Registrar Poste</h1>
+      <div className="col-5 offset-3 pt-3">
+        <h5>Registrando poste con ID: {parseInt(pokemon)+1}</h5>
+        <FormTextField name="Tipo" placeholder="Tipo" type="text" parentCallback={typeCallbackFunction} />
+        <FormTextField name="Material" placeholder="Material" type="text" parentCallback={materialCallbackFunction} />
+        <FormTextField name="Altura" placeholder="Altura en metros" type="text" parentCallback={lengthCallbackFunction} />
+        <FormTextField name="Tipo de infraestructura" placeholder="Tipo de infraestructura" type="text" parentCallback={infraTypeCallbackFunction} />
+        <FormTextField name="Tipo de red" placeholder="Tipo de red" type="text" parentCallback={infraNetworkCallbackFunction} />
+        <Link to={'/Inicio'}>
+            <Button
+              variant="contained"
+              color="error"
+              backgroundColor="#000"
+              size="large"
+              className="col-12"
+              
+              startIcon={<SaveIcon />}
+              onClick={createPost}
+            >
+              Guardar Poste
+            </Button></Link>
       </div>
+      <div className="col-7  pt-4">
+          
+        </div>
     </div>
 
   );
 }
-
-
-export default CreatePost;

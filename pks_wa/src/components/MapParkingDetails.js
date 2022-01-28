@@ -16,6 +16,7 @@ const options = {
     styles:mapStyles,
     disableDefaultUI: true,
     zoomControl:true,
+    mapTypeId: 'hybrid',
 }
 
 export default function MapParkingDetails(props){

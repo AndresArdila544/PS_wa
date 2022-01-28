@@ -107,7 +107,7 @@ const Login = () => {
             </div>
 
             <form>
-              <TextField className="row" parentCallback={emailCallbackFunction} name="Correo" placeholder="Escriba su correo" type="text" />
+              <TextField className="row" parentCallback={emailCallbackFunction} name="Usuario" placeholder="Escriba su usuario" type="text" />
               <TextField className="row" parentCallback={passwordCallbackFunction} name="Contraseña" placeholder="Contraseña" type="password" />
             </form>
             <div className="col-12 py-2 ">

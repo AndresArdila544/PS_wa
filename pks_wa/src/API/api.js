@@ -2,6 +2,7 @@ const { rejects } = require('assert');
 const http  = require('http');
 const { resolve } = require('path');
 const url = `http://localhost:8080/ApiRest/Luminary/`
+const url2 = `http://localhost:8080/ApiRest/Lampost/`
 const axios = require('axios')
 
 async function getLuminary(){
@@ -53,6 +54,41 @@ async function getLuminaryLoc(){
     }).then(res=>res.data).catch(err=>console.log(err))
 }
 
+//POSTES
+
+async function getLampost(){
+    let res = await axios.get(`${url2}`);
+    let data = res.data
+    //console.log(data)
+    return data
+}
+
+async function getPostById(id){
+    let res = await axios.get(`${url2}${id}`);
+    let data = res.data
+    return data
+}
+
+async function insertPost(post) {
+    //console.log(JSON.stringify(user))
+    let res = await axios.post(url2, post);    
+    let data = res.data;
+    //console.log(data)
+    return data;    
+}
+
+async function updatePost(post){
+    //console.log(JSON.stringify(data))
+    let res = await axios.put(`${url2}`,post)
+    return res.data
+}
+
+async function deletePost(id){
+    let res = await axios.delete(`${url2}${id}`);
+    return res.status;
+}
+
+
 exports.makeGetLuminary = () =>{
     return getLuminary()
 }
@@ -75,4 +111,26 @@ exports.makeDeleteLuminary = (id) =>{
 
 exports.makeGetLuminaryLoc = () =>{
     return getLuminaryLoc()
+}
+
+
+
+exports.makeGetPost = () =>{
+    return getLampost()
+}
+
+exports.makeGetPostById = (id) =>{
+   return getPostById(id)
+}
+
+exports.makePostPost = (post) =>{
+    return insertPost(post)
+}
+
+exports.makeUpdatePost =(post)=>{
+    return updatePost(post)
+}
+
+exports.makeDeletePost = (id) =>{
+    return deletePost(id)
 }

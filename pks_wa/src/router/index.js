@@ -1,17 +1,16 @@
-import React, { Component } from "react";
+import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "../views/Home/HomeView";
 import HomeOwner from "../views/HomeOwner";
 import Login from "../views/Login/LoginView";
 import Register from "../views/Register/RegisterView";
 import RegisterOwner from "../views/RegisterOwner";
-import ParkingDetail from "../views/ParkingDetail/ParkingView";
+import LuminaryView from "../views/LuminaryDetail/LuminaryView";
 import CreateLuminary from "../views/CreateAssets/CreateLuminaryView";
 import CreatePost from "../views/CreateAssets/CreatePostView";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import clsx from "clsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
-//import Drawer from '../components/Drawer'
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -31,10 +30,7 @@ import MeetingRoomSharpIcon from "@material-ui/icons/MeetingRoomSharp";
 import HomeSharpIcon from "@material-ui/icons/HomeSharp";
 import { useHistory, Link } from "react-router-dom";
 import "../index.css";
-import { Toast} from 'react-bootstrap';
 import {useState} from 'react';
-import { getToken, onMessageListener } from '../../src/firebase';
-import '../../src/firebase'
 
 const drawerWidth = 260;
 const useStyles = makeStyles((theme) => ({
@@ -106,15 +102,6 @@ export default function AppRouter() {
   //const history = useHistory();
   //const closeSesionOnClick = () => history.go('/');
   const [show, setShow] = useState(false);
-  const [isTokenFound, setTokenFound] = useState(false);
-  const [notification, setNotification] = useState({title: '', body: ''});
-  getToken(setTokenFound);
-
-  onMessageListener().then(payload => {
-    setShow(true);
-    setNotification({title: payload.notification.title, body: payload.notification.body})
-    console.log(payload);
-  }).catch(err => console.log('failed: ', err));
 
   const [open, setOpen] = React.useState(false);
 
@@ -265,25 +252,9 @@ export default function AppRouter() {
             <Route path="/SignUpOwner" component={RegisterOwner} />
             <Route path="/CreateLuminary" component={CreateLuminary} />
             <Route path="/CreatePost" component={CreatePost} />
-            <Route path="/ParkingDetail/:id" component={ParkingDetail} />
+            <Route path="/LuminaryView/:id" component={LuminaryView} />
           </Switch>
-          <Toast onClose={() => setShow(false)} show={show} delay={3000} autohide animation style={{
-          position: 'absolute',
-          top: 20,
-          right: 20,
-          minWidth: 200
-        }}>
-          <Toast.Header>
-            <img
-              src="holder.js/20x20?text=%20"
-              className="rounded mr-2"
-              alt=""
-            />
-            <strong className="mr-auto">{notification.title}</strong>
-            <small>just now</small>
-          </Toast.Header>
-          <Toast.Body>{notification.body}</Toast.Body>
-        </Toast>
+          
         </main>
       </div>
     </Router>

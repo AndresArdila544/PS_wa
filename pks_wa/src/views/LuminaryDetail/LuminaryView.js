@@ -1,39 +1,22 @@
 import React from 'react';
 import MapParkingDetails from '../../components/MapParkingDetails'
-import { useQuery } from '@apollo/client'
-import { GET_PARKING_BY_ID } from '../../GraphQL/Querys';
-
 import { makeStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
-import LocalParkingIcon from '@material-ui/icons/LocalParking';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
-
-//import "../../App.css";
 
 const axios = require('axios')
 const url = `http://localhost:8080/ApiRest/Luminary/`
 var lat = 0;
 var long = 0;
-export default function ParkingView(props) {
+export default function LuminaryView(props) {
   const { id } = props.match.params
   //AXIOS
   const [isLoading, setLoading] = React.useState(true);
   const [luminary, setLuminary] = React.useState();
-  const [location, setLocation] = React.useState();
 
   React.useEffect(() => {
     axios.get(`${url}${parseInt(id)}`).then(response => {

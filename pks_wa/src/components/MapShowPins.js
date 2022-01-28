@@ -25,7 +25,8 @@ const center = {
 };
 
 const options = {
-    styles: mapStyles,
+    styles:mapStyles,
+    mapTypeId: 'hybrid',
     disableDefaultUI: true,
     zoomControl: true,
 }
@@ -96,6 +97,7 @@ export default function MapShowPins(props) {
                 id="map"
                 style={{ borderRadius: "300px" }}
                 mapContainerStyle={mapContainerStyle}
+                mapTypeId= 'hybrid'
                 zoom={15}
                 center={center}
                 options={options}
@@ -131,7 +133,7 @@ export default function MapShowPins(props) {
                                     <div>
                                         <h2>Luminaria #{selected[0]}</h2>
                                         <div className="divbtns">
-                                            <Link to={`/ParkingDetail/${selected[0]}`}
+                                            <Link to={`/LuminaryView/${selected[0]}`}
                                                 style={{ textDecoration: "none", color: "inherit" }}
                                                 className="watchbtn">
                                                 <Button >

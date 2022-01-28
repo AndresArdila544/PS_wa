@@ -8,9 +8,7 @@ import {
 } from "@apollo/client";
 import { client } from './GraphQL/ApolloGraphQL'
 import AppRouter from './router'
-import {useState} from 'react';
-import { getToken, onMessageListener } from './firebase';
-import './firebase'
+
 
 
 

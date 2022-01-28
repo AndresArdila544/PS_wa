@@ -22,6 +22,7 @@ const center = {
 };
 const options = {
     styles:mapStyles,
+    mapTypeId: 'hybrid',
     disableDefaultUI: true,
     zoomControl:true,
 }
@@ -69,12 +70,11 @@ export default function MapPutPin(props) {
 
     return (
         <div className="col-12 pt-3">
-            <div className="box col-6 offset-3">
-                <Search panTo={panTo}/>
-            </div>
+            
             <GoogleMap
                 id="map"
                 mapContainerStyle={mapContainerStyle}
+                mapTypeId= 'hybrid'
                 zoom={13}
                 center={center}
                 options={options}
@@ -86,7 +86,7 @@ export default function MapPutPin(props) {
                             key={`${marker.lat}-${marker.lng}`}
                             position={{lat: parseFloat(info.lat), lng: parseFloat(info.lng)}}
                             icon = {{
-                                url: '/Pin.svg',
+                                url: '/pinverde.png',
                                 scaledSize: new window.google.maps.Size(50, 50),
                             }}
                             
