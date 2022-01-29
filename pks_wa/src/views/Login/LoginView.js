@@ -5,22 +5,11 @@ import {
 } from 'react-router-dom'
 import Button from '@material-ui/core/Button';
 import TextField from '../../components/FormTextField';
-import { useMutation } from "@apollo/client";
-import { LOGIN_MUTATION } from '../../GraphQL/Mutations';
-import { makeStyles, withStyles } from '@material-ui/core/styles';
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
+import { withStyles } from '@material-ui/core/styles';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import FingerprintIcon from '@material-ui/icons/Fingerprint';
-import DriveEtaIcon from '@material-ui/icons/DriveEta';
-import { purple } from '@material-ui/core/colors';
+import { makeLoginUser} from '../../API/api';
 import "../../App.css"
-const useStyles = makeStyles((theme) => ({
-  backdrop: {
-    zIndex: theme.zIndex.drawer + 1,
-    color: '#fff',
-  },
-}));
 
 const ColorButton = withStyles((theme) => ({
   root: {
@@ -34,64 +23,44 @@ const ColorButton = withStyles((theme) => ({
 
 
 const Login = () => {
-  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const history = useHistory();
-  const classes = useStyles();
   const sendClientOnClick = () => history.push('/Inicio');
-  const sendOwnerOnClick = () => history.push('/InicioDueno');
-  const [login, { data, loading, error }] = useMutation(LOGIN_MUTATION, {
-    onCompleted: (data) => {
 
-      if (data.ath_loginWA.owner) {
-        data.ath_loginWA.id = parseInt(data.ath_loginWA.id);
-      }
-      localStorage.setItem("LoggedId", data.ath_loginWA.id);
-      localStorage.setItem("LoggedOwner", data.ath_loginWA.owner);
-      localStorage.setItem("LoggedEmail", data.ath_loginWA.email);
-
-      if (data.ath_loginWA.owner) {
-        sendOwnerOnClick()
-      } else {
-        sendClientOnClick()
-      }
-
-
-    },
-    onError: (error) => {
-      alert("error login")
-
-    }
-
-  });
-  if (loading) return (
-
-    <Backdrop className={classes.backdrop} open={loading}>
-      <CircularProgress color="inherit" />
-    </Backdrop>
-  );
-
-  const emailCallbackFunction = (childData) => {
-    setEmail(childData)
+  const usernameCallbackFunction = (childData) => {
+    setUsername(childData)
   }
 
   const passwordCallbackFunction = (childData) => {
     setPassword(childData)
   }
 
-
-  const logInMutation = async () => {
-
-    await login({
-      variables: {
-        email: email,
-        password: password
-      },
-
-    });
-    return data;
-
+  const doLogin = async () => {
+    let user={
+      username:username,
+      password:password
+    }
+    let data = await makeLoginUser(user);
+    console.log(data)
+    if(data===-1){
+      alert("Error Login")
+    }else if(data===0){
+      localStorage.setItem("LoggedId", data);
+      localStorage.setItem("LoggedAdmin", true);
+      alert("Admin Login")
+      sendClientOnClick()
+    }else{
+      localStorage.setItem("LoggedId", data);
+      localStorage.setItem("LoggedAdmin", false);
+      sendClientOnClick()
+    }
   }
+  React.useEffect(() => {
+    localStorage.setItem("LoggedId", "");
+    localStorage.setItem("LoggedAdmin", "");
+    localStorage.setItem("LoggedId", "");
+  }, []);
 
   return (
     <div>
@@ -107,11 +76,11 @@ const Login = () => {
             </div>
 
             <form>
-              <TextField className="row" parentCallback={emailCallbackFunction} name="Usuario" placeholder="Escriba su usuario" type="text" />
+              <TextField className="row" parentCallback={usernameCallbackFunction} name="Usuario" placeholder="Escriba su usuario" type="text" />
               <TextField className="row" parentCallback={passwordCallbackFunction} name="Contraseña" placeholder="Contraseña" type="password" />
             </form>
             <div className="col-12 py-2 ">
-              <ColorButton className="btn col-12" type="button" size="large" startIcon={<FingerprintIcon />} onClick={logInMutation} >
+              <ColorButton className="btn col-12" type="button" size="large" startIcon={<FingerprintIcon />} onClick={doLogin} >
                 Ingresar
               </ColorButton>
             </div>
@@ -122,14 +91,6 @@ const Login = () => {
                 </ColorButton>
               </Link>
             </div>
-
-            {/*<div className="col-12 py-2">
-              <Link to="/SignUpOwner">
-                <ColorButton className="btn col-12" type="button" size="large" startIcon={<DriveEtaIcon/>}BB>
-                  Registrate como aliado
-                </ColorButton>
-              </Link>
-  </div>*/}
 
           </div>
         </div>

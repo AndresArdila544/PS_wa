@@ -6,6 +6,7 @@ import {
 import { purple } from '@material-ui/core/colors';
 import {withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { makePostUser} from '../../API/api';
 
 
 
@@ -26,7 +27,7 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
   const history = useHistory();
-  const sendClientOnClick = () => history.go('/');
+  const sendClientOnClick = () => history.push('/');
 
   const usernameCallbackFunction = (childData) => {
     setUsername(childData)
@@ -38,40 +39,18 @@ const Register = () => {
     setPassword2(childData)
   }
 
-  // const [signUp, { data }] = useMutation(SIGN_UP_MUTATION, {
-  //   onCompleted: (data) => {
-  //     alert("Registro exitoso")
-  //     sendClientOnClick()
-  //   },
-  //   onError: (data) => {
-  //     alert("error registro")
-  //   }
-  // });
-
-  // const signUpMutation = async () => {
-  //   await signUp({
-  //     variables: {
-  //       name: name,
-  //       email: email,
-  //       password: password,
-  //       age: parseInt(age),
-  //       phoneNumber: parseInt(phoneNumber),
-  //     }
-  //   });
-
-  // }
-
   const signUp=() =>{
-    if(password===password2){
+    if(password===password2&&password.length>0){
       let user={
         username:username,
         password:password
       }
-      //POST USER
+      makePostUser(user)
+  
     }else{
       alert("Las contraseñas no coinciden")
     }
-    
+    sendClientOnClick()
   }
 
   return (

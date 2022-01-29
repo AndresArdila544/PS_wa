@@ -75,6 +75,8 @@ export default function CreatePost(props) {
 
   return (
     <div className="row">
+      {localStorage.getItem("LoggedId") ? null:<div>{history.push('/')}</div>}
+      {localStorage.getItem("LoggedAdmin") === "false" ? <div>{history.push('/Inicio')}</div>:null}
       <h1 className="col-12 offset-3 ">Registrar Poste</h1>
       <div className="col-5 offset-3 pt-3">
         <h5>Registrando poste con ID: {parseInt(pokemon)+1}</h5>

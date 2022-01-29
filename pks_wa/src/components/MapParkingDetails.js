@@ -8,7 +8,7 @@ import {
 import mapStyles from '../styles/mapStyles'
 
 const mapContainerStyle = {
-    height: "89vh",
+    height: "500px",
     width: "100%",
 };
 

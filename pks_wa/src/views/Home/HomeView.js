@@ -1,5 +1,5 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { useHistory} from 'react-router-dom'
 import MapShowPins from '../../components/MapShowPins'
 
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -12,6 +12,7 @@ export default function Home(props) {
   //AXIOS
   const [isLoading, setLoading] = React.useState(true);
   const [pokemon, setPokemon] = React.useState();
+  const history = useHistory();
   React.useEffect(() => {
     axios.get(`${url}locations`).then(response => {
       setPokemon(response.data);
@@ -33,6 +34,7 @@ export default function Home(props) {
 
   return (
     <div>
+      {localStorage.getItem("LoggedId") ? null:<div>{history.push('/')}</div>}
       <MapShowPins obtainLocations={getlocations} />
     </div>
   );

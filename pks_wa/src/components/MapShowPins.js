@@ -9,14 +9,7 @@ import {
 import mapStyles from '../styles/mapStyles'
 import { Link, useHistory } from 'react-router-dom';
 import "../App.css";
-import Backdrop from '@material-ui/core/Backdrop';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { DELETE_PARKING_BY_ID } from '../GraphQL/Mutations';
-import { useMutation } from "@apollo/client";
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 const libraries = ["places"];
 
 const center = {
@@ -25,7 +18,7 @@ const center = {
 };
 
 const options = {
-    styles:mapStyles,
+    styles: mapStyles,
     mapTypeId: 'hybrid',
     disableDefaultUI: true,
     zoomControl: true,
@@ -35,13 +28,6 @@ const mapContainerStyle = {
     width: "100%",
     border_radius: "15px",
 };
-const useStyles = makeStyles((theme) => ({
-    backdrop: {
-        zIndex: theme.zIndex.drawer + 1,
-        color: '#fff',
-    },
-}));
-
 
 
 export default function MapShowPins(props) {
@@ -50,38 +36,10 @@ export default function MapShowPins(props) {
         libraries,
     })
     const history = useHistory()
-    const classes = useStyles();
     var [markers, setMarkers] = React.useState([]);
     var [selected, setSelected] = React.useState(null)
-    const sendOwnerOnClick = () => history.go('/InicioDueno');
-    const [deletepark, { data, loading, error }] = useMutation(DELETE_PARKING_BY_ID, {
-        onCompleted: (data) => {
-            sendOwnerOnClick()
-        },
-        onError: (error) => {
-            console.log("error cant delete parking")
-        }
-
-    });
-    if (loading) return (
-        <Backdrop className={classes.backdrop} open={loading}>
-            <CircularProgress color="inherit" />
-        </Backdrop>
-    );
-
-
-
 
     markers = props.obtainLocations()
-
-    const deleteParking = async (id) => {
-        await deletepark({
-            variables: {
-                id: parseInt(id)
-            },
-
-        });
-    }
 
     if (loadError) return "Error loading Maps"
     if (!isLoaded) return "Loading Maps"
@@ -97,7 +55,7 @@ export default function MapShowPins(props) {
                 id="map"
                 style={{ borderRadius: "300px" }}
                 mapContainerStyle={mapContainerStyle}
-                mapTypeId= 'hybrid'
+                mapTypeId='hybrid'
                 zoom={15}
                 center={center}
                 options={options}
@@ -109,10 +67,10 @@ export default function MapShowPins(props) {
                     <Marker
                         key={parseInt(info[0])}
                         position={{ lat: parseFloat(info[1]), lng: parseFloat(info[2]) }}
-                        icon={info[3]==='Mantener'?{
+                        icon={info[3] === 'Mantener' ? {
                             url: '/pinverde.png',
                             scaledSize: new window.google.maps.Size(16, 16),
-                        }:{
+                        } : {
                             url: '/pinrojo.png',
                             scaledSize: new window.google.maps.Size(16, 16),
                         }}
@@ -140,20 +98,6 @@ export default function MapShowPins(props) {
                                                     Ver Luminaria
                                                 </Button>
                                             </Link>
-
-                                            {localStorage.getItem('LoggedOwner') === "true" ?
-                                                <Link to={'/InicioDueno'}
-                                                    style={{ textDecoration: "none", color: "inherit" }}
-                                                    className="deleteicon"
-                                                >
-                                                    <IconButton
-                                                        onClick={(event) => { event.stopPropagation(); deleteParking(selected.id) }}>
-                                                        <DeleteForeverIcon />
-                                                    </IconButton>
-                                                </Link>
-                                                :
-                                                null
-                                            }
                                         </div>
 
 
@@ -165,44 +109,6 @@ export default function MapShowPins(props) {
                     </Marker>
 
                 ))};
-                {/* {selected ? (
-                                <InfoWindow
-                                    
-                                    onCloseClick={() => {
-                                        setSelected(null);
-                                    }}
-
-                                >
-                                    <div>
-                                        <h2>{selected.name}</h2>
-                                        <h5>{selected.address}</h5>
-                                        <Link to={`/ParkingDetail/${selected.id}`}>
-                                            <Button >
-                                                Ver Parqueadero
-                                            </Button>
-                                        </Link>
-                                        
-                                        {localStorage.getItem('LoggedOwner') === "true" ? 
-                                            <Link to={'/InicioDueno'}>
-                                                <button 
-                                                    onClick={(event) => {event.stopPropagation();deleteParking(selected.id)}}>
-                                                    Eliminar Parqueadero
-                                                </button>
-                                            </Link>
-                                        :
-                                            null
-                                        }
-                                        
-                                        
-                                        
-                                    </div>
-                                    
-                                </InfoWindow>
-                    ) : null} */}
-
-
-
-
             </GoogleMap>
         </div>
     );

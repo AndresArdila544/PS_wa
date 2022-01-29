@@ -4,11 +4,17 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {
+  FirebaseAppProvider
+} from 'reactfire'
+import firebaseConfig from './firebase-config'
 
-ReactDOM.render(
-  <React.StrictMode>
+ReactDOM.render((
+  <FirebaseAppProvider firebaseConfig={firebaseConfig}>
     <App />
-  </React.StrictMode>,
+  </FirebaseAppProvider>)
+  ,
+
   document.getElementById('root')
 );
 

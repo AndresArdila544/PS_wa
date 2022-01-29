@@ -4,10 +4,8 @@ import {
     GoogleMap,
     useLoadScript,
     Marker,
-    InfoWindow,
 } from "@react-google-maps/api";
 
-import Search from './Search'
 import mapStyles from '../styles/mapStyles'
 
 

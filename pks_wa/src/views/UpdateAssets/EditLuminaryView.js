@@ -1,22 +1,20 @@
 import React, { useState } from 'react';
 import axios from 'axios'
-import MapPutPin from '../../components/MapPutPin'
+import MapParkingDetails from '../../components/MapParkingDetails'
 import Button from '@material-ui/core/Button';
 import SaveIcon from '@material-ui/icons/Save';
 import FormTextField from '../../components/FormTextField'
 import { useHistory, Link } from 'react-router-dom'
-import DropdownList from "react-widgets/DropdownList";
 import "react-widgets/styles.css";
 import CircularProgress from '@material-ui/core/CircularProgress';
-import {makePostLuminary} from '../../API/api';
+import { makeUpdateLuminary } from '../../API/api';
+const url2 = `http://localhost:8080/ApiRest/Luminary/`
 
-const url = `http://localhost:8080/ApiRest/Lampost/`
-
-
-export default function CreateLuminary(props) {
+export default function EditLuminaryView(props) {
+  const { id } = props.match.params
   //AXIOS
   const [isLoading, setLoading] = React.useState(true);
-  const [pokemon, setPokemon] = React.useState();
+  const [luminary, setLuminary] = React.useState();
 
   const [latitude, setLatitude] = useState(0);
   const [longitude, setLongitude] = useState(0);
@@ -31,16 +29,9 @@ export default function CreateLuminary(props) {
   const [action, setAction] = useState("");
   const [control, setControl] = useState("");
   const [idLampost, setIdLampost] = useState(1);
-
-  const [marker, setMarker] = useState(null)
+  const [date, setDate] = useState("");
   const history = useHistory();
-  
-  const latitudeCallbackFunction = (childData) => {
-    setLatitude(childData)
-  }
-  const longitudeCallbackFunction = (childData) => {
-    setLongitude(childData)
-  }
+
   const technologyCallbackFunction = (childData) => {
     setTechnology(childData)
   }
@@ -71,22 +62,34 @@ export default function CreateLuminary(props) {
   const controlCallbackFunction = (childData) => {
     setControl(childData)
   }
-  const idLampostCallbackFunction = (childData) => {
-    setIdLampost(childData)
-  }
-  
+
   //AXIOS
   React.useEffect(() => {
-    axios.get(`${url}ids`).then(response => {
-      setPokemon(response.data);
+    axios.get(`${url2}${parseInt(id)}`).then(response => {
+      setLuminary(response.data);
+      setLatitude(response.data.latitude);
+      setLongitude(response.data.longitude);
+      setIdLampost(response.data.idLampost.idLampost);
+      setTechnology(response.data.technology);
+      setPower(response.data.power);
+      setNeighborhood(response.data.neighborhood);
+      setAddress(response.data.address);
+      setType(response.data.type);
+      setArm_length(response.data.arm_length);
+      setSector(response.data.sector);
+      setState(response.data.state);
+      setAction(response.data.action);
+      setControl(response.data.control);
+      setDate(response.data.date);
       setLoading(false);
     });
   }, []);
 
   //const sendClientOnClick = () => history.go('/InicioDueno');
 
-  const createLuminary = () => {
-    let luminary = {
+  const editLuminary = () => {
+    let luminaryPost = {
+      idLuminary: luminary.idLuminary,
       power: power,
       latitude: latitude,
       longitude: longitude,
@@ -100,18 +103,14 @@ export default function CreateLuminary(props) {
       control: control,
       technology: technology,
       idLampost: idLampost,
+      date:date
     }
     console.log("lumninaria:")
-    console.log(luminary);
-    makePostLuminary(luminary);
+    console.log(luminaryPost);
+    makeUpdateLuminary(luminaryPost);
   }
 
-  var address = null
-  function setLocation(childData) {
-    setMarker(childData)
-    setLatitude(childData.lat)
-    setLongitude(childData.lng)
-  }
+
 
   //AXIOS
   if (isLoading) {
@@ -120,41 +119,33 @@ export default function CreateLuminary(props) {
     </div>;
   }
   return (
-
     <div className="row">
       {localStorage.getItem("LoggedId") ? null:<div>{history.push('/')}</div>}
       {localStorage.getItem("LoggedAdmin") === "false" ? <div>{history.push('/Inicio')}</div>:null}
-      <h1 className="col-12">Registrar Luminaria</h1>
+      <h1 className="col-12">Editando Luminaria #{luminary.idLuminary}</h1>
       <div className="col-5 pt-3">
         <div className="row">
           <div className="col-6">
-            <FormTextField name="Latitud" placeholder="Latitud" type="number" value={latitude} parentCallback={latitudeCallbackFunction} />
-            <FormTextField name="Tecnología" placeholder="Tecnología" type="text" parentCallback={technologyCallbackFunction} />
-            <FormTextField name="Poder" placeholder="Poder" type="text" parentCallback={powerCallbackFunction} />
-            <FormTextField name="Barrio" placeholder="Barrio" type="text" parentCallback={neighborhoodCallbackFunction} />
-            <FormTextField name="Dirección" placeholder="Dirección" type="text" value={address} parentCallback={addressCallbackFunction} />
-            <FormTextField name="Tipo" placeholder="Tipo" type="text" parentCallback={typeCallbackFunction} />
+            <p>Longitud: {luminary.longitude} </p>
+            <FormTextField name="Tecnología" placeholder="Tecnología" type="text" value={technology} onChange={(nextValue) => setTechnology(nextValue)} parentCallback={technologyCallbackFunction} />
+            <FormTextField name="Poder" placeholder="Poder" type="text" value={power} parentCallback={powerCallbackFunction} />
+            <FormTextField name="Barrio" placeholder="Barrio" type="text" value={neighborhood} parentCallback={neighborhoodCallbackFunction} />
+            <FormTextField name="Dirección" placeholder="Dirección" type="text" value={addressDB} parentCallback={addressCallbackFunction} />
+            <FormTextField name="Tipo" placeholder="Tipo" type="text" value={type} parentCallback={typeCallbackFunction} />
+            <p className="col-12">Fecha registro: {luminary.date}</p>
           </div>
           <div className="col-6">
-            <FormTextField name="Longitud" placeholder="Longitud" type="number" value={longitude} parentCallback={longitudeCallbackFunction} />
-            <FormTextField name="Longitud de brazo" placeholder="En metros" type="text" parentCallback={arm_lengthCallbackFunction} />
-            <FormTextField name="Sector" placeholder="Sector" type="text" parentCallback={sectorCallbackFunction} />
-            <FormTextField name="Estado" placeholder="Estado" type="text" parentCallback={stateCallbackFunction} />
-            <FormTextField name="Acción" placeholder="Acción" type="text" parentCallback={actionCallbackFunction} />
-            <FormTextField name="Control" placeholder="Control" type="text" parentCallback={controlCallbackFunction} />
+            <p>Latitud: {luminary.latitude} </p>
+            <FormTextField name="Longitud de brazo" placeholder="En metros" type="text" value={arm_length} parentCallback={arm_lengthCallbackFunction} />
+            <FormTextField name="Sector" placeholder="Sector" type="text" value={sector} parentCallback={sectorCallbackFunction} />
+            <FormTextField name="Estado" placeholder="Estado" type="text" value={state} parentCallback={stateCallbackFunction} />
+            <FormTextField name="Acción" placeholder="Acción" type="text" value={action} parentCallback={actionCallbackFunction} />
+            <FormTextField name="Control" placeholder="Control" type="text" value={control} parentCallback={controlCallbackFunction} />
           </div>
-          <h5>
-            Asociar con poste
-          </h5>
-          <DropdownList
-            value={idLampost}
-            onChange={(nextValue) => setIdLampost(parseInt(nextValue))}
-            data={pokemon}
-          />
         </div>
       </div>
       <div className="col-7">
-        <MapPutPin onLocationChange={setLocation} />
+      <MapParkingDetails location={{ lat: luminary.latitude, lng: luminary.longitude }} />
         <div className="col-7 offset-5 pt-4">
           <Link to={'/Inicio'}>
             <Button
@@ -164,7 +155,7 @@ export default function CreateLuminary(props) {
               size="large"
               className="col-12"
               startIcon={<SaveIcon />}
-              onClick={createLuminary}
+              onClick={editLuminary}
             >
               Guardar Luminaria
             </Button></Link>

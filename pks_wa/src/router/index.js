@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Home from "../views/Home/HomeView";
-import HomeOwner from "../views/HomeOwner";
 import Login from "../views/Login/LoginView";
 import Register from "../views/Register/RegisterView";
-import RegisterOwner from "../views/RegisterOwner";
 import LuminaryView from "../views/LuminaryDetail/LuminaryView";
 import CreateLuminary from "../views/CreateAssets/CreateLuminaryView";
 import CreatePost from "../views/CreateAssets/CreatePostView";
+import EditLuminaryView from "../views/UpdateAssets/EditLuminaryView";
+import EditPostView from "../views/UpdateAssets/EditPostView";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import clsx from "clsx";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -30,7 +30,7 @@ import MeetingRoomSharpIcon from "@material-ui/icons/MeetingRoomSharp";
 import HomeSharpIcon from "@material-ui/icons/HomeSharp";
 import { useHistory, Link } from "react-router-dom";
 import "../index.css";
-import {useState} from 'react';
+import { useState } from 'react';
 
 const drawerWidth = 260;
 const useStyles = makeStyles((theme) => ({
@@ -99,9 +99,8 @@ const useStyles = makeStyles((theme) => ({
 export default function AppRouter() {
   const classes = useStyles();
   const theme = useTheme();
-  //const history = useHistory();
-  //const closeSesionOnClick = () => history.go('/');
-  const [show, setShow] = useState(false);
+  const history = useHistory();
+
 
   const [open, setOpen] = React.useState(false);
 
@@ -114,8 +113,9 @@ export default function AppRouter() {
   };
   function cerrarSesion() {
     localStorage.setItem("LoggedId", "");
-    localStorage.setItem("LoggedOwner", "");
-    localStorage.setItem("LoggedEmail", "");
+    localStorage.setItem("LoggedAdmin", "");
+    localStorage.setItem("LoggedId", "");
+    
   }
 
   return (
@@ -171,45 +171,46 @@ export default function AppRouter() {
           </div>
           <Divider />
           <List>
-            {localStorage.getItem("LoggedOwner")==="true" ? (
-              <Link
-                to={"/InicioDueno"}
-                style={{ textDecoration: "none", color: "inherit" }}>
-                <ListItem button key={localStorage.getItem("LoogedEmail")}> 
-                      <ListItemIcon>
-                        <HomeSharpIcon />
-                      </ListItemIcon>
-                <ListItemText primary="Mis Parqueaderos" />
-                </ListItem>
-              </Link> )
-              :null}
-
-            {localStorage.getItem("LoggedOwner")==="false" ? (
+            {localStorage.getItem("LoggedId") ? (
               <Link
                 to={"/Inicio"}
                 style={{ textDecoration: "none", color: "inherit" }}>
-                  <ListItem button key="login">
-                    <ListItemIcon>
-                      <HomeSharpIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Inicio" />
-                  </ListItem>
+                <ListItem button key="login">
+                  <ListItemIcon>
+                    <HomeSharpIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Inicio" />
+                </ListItem>
               </Link>
-            ): null}
-
-
-            {localStorage.getItem("LoggedOwner") === "true" ? (
+            ) : null}
+            {localStorage.getItem("LoggedAdmin") === "true" ? (
               <Link
                 to={"/CreateLuminary"}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
-                <ListItem button key={localStorage.getItem("LoogedEmail")}>
+                <ListItem button key={localStorage.getItem("LoggedId")}>
                   <ListItemIcon>
                     <AddIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Crear Parking" />
+                  <ListItemText primary="Registrar Luminaria" />
                 </ListItem>
               </Link>
+
+            ) : null}
+
+            {localStorage.getItem("LoggedAdmin") === "true" ? (
+              <Link
+                to={"/CreatePost"}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <ListItem button key={localStorage.getItem("LoggedId")}>
+                  <ListItemIcon>
+                    <AddIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Registrar Poste" />
+                </ListItem>
+              </Link>
+
             ) : null}
 
             {localStorage.getItem("LoggedId") ? (
@@ -217,25 +218,25 @@ export default function AppRouter() {
                 to={"/"}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
-                <ListItem button key={localStorage.getItem("LoogedEmail")} onClick={cerrarSesion}>
+                <ListItem button key={localStorage.getItem("LoggedId")} onClick={cerrarSesion}>
                   <ListItemIcon>
                     <CloseSharpIcon />
                   </ListItemIcon>
                   <ListItemText primary="Cerrar Sesion" />
                 </ListItem>
               </Link>
-            ):
+            ) :
               <Link
                 to={"/"}
                 style={{ textDecoration: "none", color: "inherit" }}
               >
-                <ListItem button key={localStorage.getItem("LoogedEmail")} onClick={cerrarSesion}>
+                <ListItem button key={localStorage.getItem("LoggedId")} onClick={cerrarSesion}>
                   <ListItemIcon>
                     <MeetingRoomSharpIcon />
                   </ListItemIcon>
                   <ListItemText primary="Inicia Sesion" />
                 </ListItem>
-              </Link> 
+              </Link>
             }
 
           </List>
@@ -243,18 +244,18 @@ export default function AppRouter() {
 
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          
+
           <Switch>
             <Route path="/Inicio" component={Home} />
             <Route exact path="/" component={Login} />
-            <Route path="/InicioDueno" component={HomeOwner} />
             <Route path="/SignUp" component={Register} />
-            <Route path="/SignUpOwner" component={RegisterOwner} />
             <Route path="/CreateLuminary" component={CreateLuminary} />
             <Route path="/CreatePost" component={CreatePost} />
             <Route path="/LuminaryView/:id" component={LuminaryView} />
+            <Route path="/EditLuminary/:id" component={EditLuminaryView} />
+            <Route path="/EditPost/:id" component={EditPostView} />
           </Switch>
-          
+
         </main>
       </div>
     </Router>
