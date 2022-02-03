@@ -8,7 +8,7 @@ import CircularProgress from '@material-ui/core/CircularProgress';
 import {makePostPost} from '../../API/api';
 
 const axios = require('axios');
-const url = `http://localhost:8080/ApiRest/Lampost/`
+const url = `https://liaterap-back.herokuapp.com/ApiRest/Lampost/`
 
 
 

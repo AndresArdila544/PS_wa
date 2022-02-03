@@ -16,7 +16,7 @@ import {makeDeletePost} from '../../API/api';
 
 
 const axios = require('axios')
-const url = `http://localhost:8080/ApiRest/Luminary/`
+const url = `https://liaterap-back.herokuapp.com/ApiRest/Luminary/`
 
 export default function LuminaryView(props) {
   const { id } = props.match.params

@@ -1,6 +1,6 @@
-const url = `http://localhost:8080/ApiRest/Luminary/`
-const url2 = `http://localhost:8080/ApiRest/Lampost/`
-const url3 = `http://localhost:8080/ApiRest/User/`
+const url = `https://liaterap-back.herokuapp.com/ApiRest/Luminary/`
+const url2 = `https://liaterap-back.herokuapp.com/ApiRest/Lampost/`
+const url3 = `https://liaterap-back.herokuapp.com/ApiRest/User/`
 const axios = require('axios')
 
 
@@ -46,7 +46,7 @@ async function deleteLuminary(id) {
 
 async function getLuminaryLoc() {
     return axios({
-        url: 'http://localhost:8080/ApiRest/Luminary/locations',
+        url: 'http:// https://liaterap-back.herokuapp.com/ApiRest/Luminary/locations',
         method: 'get',
         timeout: 8000,
         headers: { 'Content-Type': 'application/json', }

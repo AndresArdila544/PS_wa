@@ -8,7 +8,7 @@ import { useHistory, Link } from 'react-router-dom'
 import "react-widgets/styles.css";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { makeUpdateLuminary } from '../../API/api';
-const url2 = `http://localhost:8080/ApiRest/Luminary/`
+const url2 = `https://liaterap-back.herokuapp.com/ApiRest/Luminary/`
 
 export default function EditLuminaryView(props) {
   const { id } = props.match.params

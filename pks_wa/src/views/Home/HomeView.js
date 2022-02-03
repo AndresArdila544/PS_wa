@@ -5,7 +5,7 @@ import MapShowPins from '../../components/MapShowPins'
 import CircularProgress from '@material-ui/core/CircularProgress';
 
 const axios = require('axios')
-const url = `http://localhost:8080/ApiRest/Luminary/`
+const url = `https://liaterap-back.herokuapp.com/ApiRest/Luminary/`
 
 export default function Home(props) {
 

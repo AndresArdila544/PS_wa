@@ -10,7 +10,7 @@ import "react-widgets/styles.css";
 import CircularProgress from '@material-ui/core/CircularProgress';
 import {makePostLuminary} from '../../API/api';
 
-const url = `http://localhost:8080/ApiRest/Lampost/`
+const url = `https://liaterap-back.herokuapp.com/ApiRest/Lampost/`
 
 
 export default function CreateLuminary(props) {
